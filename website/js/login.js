@@ -57,12 +57,12 @@ function login_check(){
 
 	let authHash = Blake2b.hash("bloggy2020-" + password + "-" + username);
 	Argon2id.hash(authHash, Blake2b.hash("bloggy2020-" + username), 32, 32, 4, 64).then(hash => {
-		signin(username, hash, password, otp);
+		signin(username, hash, otp);
 	});
 }
 
-function signin(username, authPassword, password, otp){
-	Bloggy.getToken(username, authPassword, otp).then(response => {
+function signin(username, password, otp){
+	Bloggy.getToken(username, password, otp).then(response => {
 
 		if(typeof response['error'] === 'undefined'){
 			showDialogButtons();
@@ -72,54 +72,38 @@ function signin(username, authPassword, password, otp){
 
 		if(response['error'] != 0){
 			showDialogButtons();
-			changeDialog(1, JSON.stringify(response));
+			changeDialog(1, response.info);
 			return;
 		}
 
-		if(response['error'] == 0){
-			writeData("passwords", JSON.stringify(response['passwords']));
-		}else{
-			writeData("passwords", "{}");
-		}
+		console.log(response);
+		return;
 
-		writeData('url', url);
 		writeData('username', username);
 		writeData('token', response['token']);
 		writeData('auth', response['auth']);
 		writeData('yubico', response['yubico']);
-		writeData('maxPasswords', response['max_passwords']);
-		writeData('premiumExpires', response['premium_expires']);
 		writeData('loginTime', new Date().getTime());
 
-		changeDialog(4, "decrypting_passwords");
-
-		let passHash = Blake2b.hash(username + "-" + password + "-passky2020");
-		Argon2id.hash(passHash, Blake2b.hash(username + "-passky2020"), 32, 32, 4, 64).then(hash => {
-			writeData('password', encryptPassword(hash));
-			window.location.href = 'passwords.html';
-		});
+		window.location.href = 'panel.html';
 
 	}).catch(err => {
 		showDialogButtons();
-		console.log(JSON.stringify(err));
 		switch(err){
 			case 1000:
 				changeDialog(1, "Server is unreachable!");
 			break;
-			case 1001:
-				changeDialog(1, lang["url_invalid"]);
-			break;
 			case 1002:
-				changeDialog(1, lang["otp_contains"] + "\n" + lang["otp_not_setup"]);
+				changeDialog(1, "Username can only contain lowercase characters, numbers and hyphens. It also needs to start with lowercase character and be between 4 and 30 characters long.");
 			break;
-			case 1005:
-				changeDialog(1, lang["12"]);
+			case 1003:
+				changeDialog(1, "Password is too short!");
 			break;
 			case 1006:
-				changeDialog(1, lang["5"]);
+				changeDialog(1, "OTP is invalid!");
 			break;
 			default:
-				changeDialog(1, lang[err]);
+				changeDialog(1, "Unknown error!");
 			break;
 		}
 	});
