@@ -70,9 +70,9 @@ function signin(username, authPassword, password, otp){
 			return;
 		}
 
-		if(response['error'] != 0 && response['error'] != 8){
+		if(response['error'] != 0){
 			showDialogButtons();
-			changeDialog(1, lang[response['error']]);
+			changeDialog(1, JSON.stringify(response));
 			return;
 		}
 
@@ -101,6 +101,7 @@ function signin(username, authPassword, password, otp){
 
 	}).catch(err => {
 		showDialogButtons();
+		console.log(JSON.stringify(err));
 		switch(err){
 			case 1000:
 				changeDialog(1, "Server is unreachable!");
