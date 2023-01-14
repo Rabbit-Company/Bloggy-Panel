@@ -121,61 +121,34 @@
 
 	class Bloggy{
 
-		static getInfo(server){
+		static createAccount(username, password, email, title, description, author, category, language, theme){
 			return new Promise((resolve, reject) => {
-				if(!Validate.url(server)) return reject(1001);
+				if(!Validate.username(username)) return reject(1002);
+				if(!Validate.password(password)) return reject(1003);
+				if(!Validate.email(email)) return reject(1004);
+				if(!Validate.title(title)) return reject(1009);
+				if(!Validate.description(description)) return reject(1010);
+				if(!Validate.author(author)) return reject(1011);
+				if(!Validate.category(category)) return reject(1012);
+				if(!Validate.language(language)) return reject(1013);
+				if(!Validate.theme(theme)) return reject(1014);
 
-				fetch(server + "?action=getInfo").then((result) => {
-					if (result.status != 200 && result.status != 429) return reject(1000);
-						return result.text();
-					}).then((response) => {
-						try{
-							return resolve(JSON.parse(response));
-						}catch(error){
-							return reject(1000);
-						}
-					}).catch(() => {
-						return reject(1000);
-					});
-			});
-		}
+				let data = {
+					username: username,
+					password: password,
+					email: email,
+					title: title,
+					description: description,
+					author: author,
+					category: category,
+					language: language,
+					theme: theme
+				}
 
-		static getStats(server){
-			return new Promise((resolve, reject) => {
-				if(!Validate.url(server)) return reject(1001);
-
-				fetch(server + "?action=getStats").then((result) => {
-					if (result.status != 200 && result.status != 429) return reject(1000);
-						return result.text();
-					}).then((response) => {
-						try{
-							return resolve(JSON.parse(response));
-						}catch(error){
-							return reject(1000);
-						}
-					}).catch(() => {
-						return reject(1000);
-					});
-			});
-		}
-
-		static createAccount(server, username, password, email){
-			return new Promise((resolve, reject) => {
-				if(!Validate.url(server)) return reject(1001);
-				if(!Validate.email(email)) return reject(1007);
-				if(!Validate.username(username)) return reject(1005);
-				if(!Validate.password(password)) return reject(1006);
-
-				let data = new FormData();
-				data.append("email", email);
-
-				let headers = new Headers();
-				headers.append('Authorization', 'Basic ' + btoa(username + ":" + password));
-
-				fetch(server + "?action=createAccount", {
+				fetch("https://api.bloggy.io/register", {
 					method: "POST",
-					headers: headers,
-					body: data
+					headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+					body: JSON.stringify(data)
 				}).then((result) => {
 					if (result.status != 200 && result.status != 429) return reject(1000);
 					return result.text();
@@ -183,7 +156,6 @@
 					try{
 						return resolve(JSON.parse(response));
 					}catch(error){
-						console.log(error);
 						return reject(1000);
 					}
 				}).catch(() => {
@@ -192,20 +164,18 @@
 			});
 		}
 
-		static getToken(server, username, password, otp = "", encrypted = true){
+		static getToken(username, password, otp = "", encrypted = true){
 			return new Promise((resolve, reject) => {
 				if(!Validate.url(server)) return reject(1001);
 				if(!Validate.username(username)) return reject(1005);
 				if(!Validate.password(password)) return reject(1006);
 				if(!Validate.otp(otp)) return reject(1002);
 
-				let data = new FormData();
-				data.append("otp", otp);
+				let data = {
 
-				let headers = new Headers();
-				headers.append('Authorization', 'Basic ' + btoa(username + ":" + password));
+				}
 
-				fetch(server + "?action=getToken", {
+				fetch("https://api.bloggy.io/login", {
 					method: "POST",
 					headers: headers,
 					body: data
