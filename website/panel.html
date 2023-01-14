@@ -62,7 +62,7 @@
 
       <div class="lg:hidden">
         <div id="mobile-menu" class="hidden pt-2 pb-3 space-y-1">
-          <a id="passwords-link-mobile" href="#" class="mainMenuMobileLinkSelected block pl-3 pr-4 py-2 border-l-4 text-base font-medium">Passwords</a>
+          <a id="panel-link-mobile" href="#" class="mainMenuMobileLinkSelected block pl-3 pr-4 py-2 border-l-4 text-base font-medium">Panel</a>
           <a id="import-export-link-mobile" href="export.html" class="mainMenuMobileLink border-transparent block pl-3 pr-4 py-2 border-l-4 text-base font-medium">Import & Export</a>
           <a id="settings-link-mobile" href="settings.html" class="mainMenuMobileLink border-transparent block pl-3 pr-4 py-2 border-l-4 text-base font-medium">Settings</a>
           <span id="signout-link-mobile" role="button" class="mainMenuMobileLink border-transparent block pl-3 pr-4 py-2 border-l-4 text-base font-medium">Sign out</span>
@@ -78,20 +78,20 @@
               <div class="hidden mb-8 md:block">
                 <dl class="mt-5 grid grid-cols-1 gap-5 sm:grid-cols-3">
                   <div class="px-4 py-5 secondaryBackgroundColor shadow overflow-hidden sm:p-6">
-                    <dt id="total-passwords" class="text-sm font-medium secondaryColor truncate">Total Passwords</dt>
-                    <dd id="stats-passwords" class="mt-1 text-3xl font-semibold tertiaryColor">0</dd>
+                    <dt id="total-posts" class="text-sm font-medium secondaryColor truncate">Total Posts</dt>
+                    <dd id="stats-total-posts" class="mt-1 text-3xl font-semibold tertiaryColor">0</dd>
                   </div>
                   <div class="px-4 py-5 secondaryBackgroundColor shadow overflow-hidden sm:p-6">
-                    <dt id="decryption-time" class="text-sm font-medium secondaryColor truncate">Decryption Time</dt>
-                    <dd id="stats-loading-time" class="mt-1 text-3xl font-semibold tertiaryColor">0 ms</dd>
+                    <dt id="total-unique-visitors" class="text-sm font-medium secondaryColor truncate">Total Unique Visitors</dt>
+                    <dd id="stats-total-unique-visitors" class="mt-1 text-3xl font-semibold tertiaryColor">0</dd>
                   </div>
                   <div class="px-4 py-5 secondaryBackgroundColor shadow overflow-hidden sm:p-6">
-                    <dt id="client-version" class="text-sm font-medium secondaryColor truncate">Client Version</dt>
-                    <dd class="mt-1 text-3xl font-semibold tertiaryColor">8.0.1</dd>
+                    <dt id="total-visitors" class="text-sm font-medium secondaryColor truncate">Total Visitors</dt>
+                    <dd id="stats-total-visitors" class="mt-1 text-3xl font-semibold tertiaryColor">0</dd>
                   </div>
                 </dl>
               </div>
-              <table id="table-passwords" class="min-w-full divide-y divide-gray-200">
+              <table id="table-posts" class="min-w-full divide-y divide-gray-200">
                 <tbody id="table-data" class="secondaryBackgroundColor divide-y divide-gray-200">
                 </tbody>
               </table>
@@ -105,7 +105,7 @@
 											<span id="label-stopOn" class="font-medium">0</span>
 											of
 											<span id="label-totalPasswords" class="font-medium">0</span>
-											passwords
+											posts
 										</p>
 									</div>
 									<div>
