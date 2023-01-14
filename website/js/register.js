@@ -83,6 +83,12 @@ function onBtnClick(){
 	const username = document.getElementById("username").value.toLowerCase();
 	const email = document.getElementById("email").value;
 	const password = document.getElementById("password").value;
+	const title = document.getElementById("title").value;
+	const description = document.getElementById("description").value;
+	const author = document.getElementById("author").value;
+	const category = document.getElementById("category").value;
+	const language = document.getElementById("language").value;
+	const theme = document.getElementById("theme").value;
 
 	if(PasswordEntropy.calculate(password) < 75){
 		changeDialog(1, "Your password is too weak!");
