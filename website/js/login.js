@@ -77,8 +77,8 @@ function signin(username, password, otp){
 		}
 
 		writeData('username', username);
-		writeData('user', response.data?.user);
-		writeData('posts', response.data?.posts);
+		writeData('user', JSON.stringify(response.data?.user));
+		writeData('posts', JSON.stringify(response.data?.posts));
 		writeData('loginTime', new Date().getTime());
 
 		window.location.href = 'panel.html';
