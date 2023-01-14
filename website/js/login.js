@@ -76,13 +76,8 @@ function signin(username, password, otp){
 			return;
 		}
 
-		console.log(response);
-		return;
-
 		writeData('username', username);
-		writeData('token', response['token']);
-		writeData('auth', response['auth']);
-		writeData('yubico', response['yubico']);
+		writeData('data', response.data);
 		writeData('loginTime', new Date().getTime());
 
 		window.location.href = 'panel.html';
