@@ -1,0 +1,22 @@
+{
+  "name": "bloggy-panel",
+  "version": "1.0.0",
+  "description": "Panel for creators",
+  "main": "index.js",
+  "scripts": {
+    "build": "npx tailwindcss -i ./tailwind.css -o ./website/css/tailwind.min.css --minify"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Rabbit-Company/Bloggy-Panel.git"
+  },
+  "author": "Rabbit Company LLC",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/Rabbit-Company/Bloggy-Panel/issues"
+  },
+  "homepage": "https://github.com/Rabbit-Company/Bloggy-Panel#readme",
+  "devDependencies": {
+    "tailwindcss": "^3.2.4"
+  }
+}
