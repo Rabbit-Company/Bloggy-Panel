@@ -42,8 +42,6 @@ function changeDialog(style, text){
 }
 
 function login_check(){
-
-	const url = "https://api.bloggy.io";
 	const username = document.getElementById("username").value;
 	const password = document.getElementById("password").value;
 	const otp = document.getElementById("otp").value.replace(/\s/g, '');
@@ -59,16 +57,16 @@ function login_check(){
 
 	let authHash = Blake2b.hash("bloggy2020-" + password + "-" + username);
 	Argon2id.hash(authHash, Blake2b.hash("bloggy2020-" + username), 32, 32, 4, 64).then(hash => {
-		signin(url, username, hash, password, otp);
+		signin(username, hash, password, otp);
 	});
 }
 
-function signin(url, username, authPassword, password, otp){
-	Passky.getToken(url, username, authPassword, otp).then(response => {
+function signin(username, authPassword, password, otp){
+	Bloggy.getToken(username, authPassword, otp).then(response => {
 
 		if(typeof response['error'] === 'undefined'){
 			showDialogButtons();
-			changeDialog(1, lang["server_unreachable"]);
+			changeDialog(1, "Server is unreachable!");
 			return;
 		}
 
@@ -105,7 +103,7 @@ function signin(url, username, authPassword, password, otp){
 		showDialogButtons();
 		switch(err){
 			case 1000:
-				changeDialog(1, lang["server_unreachable"]);
+				changeDialog(1, "Server is unreachable!");
 			break;
 			case 1001:
 				changeDialog(1, lang["url_invalid"]);
