@@ -84,51 +84,65 @@ function onBtnClick(){
 
 	let authHash = Blake2b.hash("bloggy2020-" + password + "-" + username);
 	Argon2id.hash(authHash, Blake2b.hash("bloggy2020-" + username), 16, 32, 4, 64).then(hash => {
-		register(username, hash, email);
+		register(username, hash, email, title, description, author, category, language, theme);
 	});
 
 }
 
-function register(url, username, authPassword, email){
-	Passky.createAccount(url, username, authPassword, email).then(response => {
+function register(username, authPassword, email, title, description, author, category, language, theme){
+	Bloggy.createAccount(username, authPassword, email, title, description, author, category, language, theme).then(response => {
 
 		showDialogButtons();
 
 		if(typeof response['error'] === 'undefined'){
-			changeDialog(1, lang["server_unreachable"]);
+			changeDialog(1, "Server is unreachable!");
 			return;
 		}
 
 		if(response['error'] != 0){
-			changeDialog(1, lang[response['error']]);
+			changeDialog(1, response.info);
 			return;
 		}
 
-		writeData('url', url);
 		writeData('username', username);
 
-		changeDialog(2, lang["registration_completed"]);
+		changeDialog(2, "Registration is completed!");
 
 	}).catch(err => {
 		showDialogButtons();
 		switch(err){
 			case 1000:
-				changeDialog(1, lang["server_unreachable"]);
+				changeDialog(1, "Server is unreachable!");
 			break;
-			case 1001:
-				changeDialog(1, lang["url_invalid"]);
+			case 1002:
+				changeDialog(1, "Username can only contain lowercase characters, numbers and hyphens. It also needs to start with lowercase character and be between 4 and 30 characters long.");
 			break;
-			case 1005:
-				changeDialog(1, lang["12"]);
+			case 1003:
+				changeDialog(1, "Password is too short!");
 			break;
-			case 1006:
-				changeDialog(1, lang["5"]);
+			case 1004:
+				changeDialog(1, "Email is invalid!");
 			break;
-			case 1007:
-				changeDialog(1, lang["6"]);
+			case 1009:
+				changeDialog(1, "Title needs to be between 3 and 30 characters long.");
+			break;
+			case 1010:
+				changeDialog(1, "Description needs to be between 30 and 160 characters long.");
+			break;
+			case 1011:
+				changeDialog(1, "Author needs to be between 5 and 30 characters long.");
+			break;
+			case 1012:
+				changeDialog(1, "Category is invalid.");
+			break;
+			case 1013:
+				changeDialog(1, "Language is invalid. Please use ISO 639-1.");
+			break;
+			case 1014:
+				changeDialog(1, "Theme is invalid.");
 			break;
 			default:
-				changeDialog(1, lang[err]);
+				changeDialog(1, "Unknown error!");
 			break;
 		}
 	});
