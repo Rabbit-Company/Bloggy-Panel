@@ -43,11 +43,20 @@ function getAllStorageData() {
 	});
 }
 
+function setTheme(){
+	if(readData('theme') == null || typeof(readData('theme')) == 'undefined') writeData('theme', 'dark');
+	if(readData('sessionDuration') == null || typeof(readData('sessionDuration')) == 'undefined') writeData('sessionDuration', '20');
+
+	if(!(["dark", "tokyoNight", "monokai", "solarizedDark", "light", "blue", "nord", "dracula", "gray"].includes(readData('theme')))) writeData('theme', 'dark');
+	document.getElementById("css-theme").href = "css/themes/" + readData('theme') + ".css";
+}
+
 function loadData(){
 	return new Promise((resolve, reject) => {
 		getAllStorageData().then(items => {
 			Object.assign(storageData, items);
-			if(readData('sessionDuration') == null || typeof(readData('sessionDuration')) == 'undefined') writeData('sessionDuration', '20');
+			setTheme();
+			resolve("Done");
 		});
 	});
 }

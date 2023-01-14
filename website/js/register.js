@@ -1,3 +1,7 @@
+loadData().then(() => {
+	document.getElementById("theme").value = readData("theme");
+});
+
 document.getElementById("signup-form").addEventListener("submit", e => {
 	e.preventDefault();
 	onBtnClick();
@@ -5,6 +9,13 @@ document.getElementById("signup-form").addEventListener("submit", e => {
 
 document.getElementById("btn_signin").addEventListener("click", () => {
 	window.location.href = "index.html";
+});
+
+document.getElementById("theme").addEventListener("change", () => {
+	let theme = document.getElementById("theme").value;
+	if(!["dark", "tokyoNight", "monokai", "solarizedDark", "light", "blue", "nord", "dracula", "gray"].includes(theme)) return;
+	writeData('theme', theme);
+	document.getElementById("css-theme").href = "css/themes/" + theme + ".css";
 });
 
 document.getElementById("password").addEventListener("input", () => {
