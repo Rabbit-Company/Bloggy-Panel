@@ -56,7 +56,7 @@ function login_check(){
 	show('dialog');
 
 	let authHash = Blake2b.hash("bloggy2020-" + password + "-" + username);
-	Argon2id.hash(authHash, Blake2b.hash("bloggy2020-" + username), 32, 16, 4, 64).then(hash => {
+	Argon2id.hash(authHash, Blake2b.hash("bloggy2020-" + username), 16, 32, 4, 64).then(hash => {
 		signin(username, hash, otp);
 	});
 }
