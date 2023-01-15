@@ -33,3 +33,9 @@ document.getElementById("signout-link").addEventListener("click", () => {
 document.getElementById("main-menu-toggle-btn").addEventListener("click", () => {
 	toggleMenu();
 });
+
+document.getElementById("title").addEventListener("input", () => {
+	let title = document.getElementById("title").value;
+	let id = title.toLowerCase().replaceAll(" ", "-");
+	document.getElementById("id").value = id;
+});
