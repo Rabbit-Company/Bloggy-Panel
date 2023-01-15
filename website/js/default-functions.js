@@ -147,7 +147,7 @@ function clearStorage(){
 }
 
 function isSessionValid(){
-	if(readData('username') == null || typeof(readData('username')) == 'undefined' || readData('token') == null || typeof(readData('token')) == 'undefined' || readData('user') == null || typeof(readData('user')) == 'undefined' || readData('posts') == null || typeof(readData('posts')) == 'undefined' || readData('loginTime') == null || typeof(readData('loginTime')) == 'undefined' || readData('sessionDuration') == null || typeof(readData('sessionDuration')) == 'undefined' || ((parseFloat(readData('loginTime')) + (readData('sessionDuration') * 60000))) < new Date().getTime()){
+	if(readData('username') == null || typeof(readData('username')) == 'undefined' || readData('token') == null || typeof(readData('token')) == 'undefined' || readData('user') == null || typeof(readData('user')) == 'undefined' || readData('posts') == null || typeof(readData('posts')) == 'undefined' || readData('loginTime') == null || typeof(readData('loginTime')) == 'undefined' || readData('sessionDuration') == null || typeof(readData('sessionDuration')) == 'undefined' || ((parseFloat(readData('loginTime')) + (readData('sessionDuration') * 3_600_000))) < new Date().getTime()){
 		clearStorage();
 		return false;
 	}
