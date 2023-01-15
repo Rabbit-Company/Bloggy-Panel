@@ -77,6 +77,7 @@ function signin(username, password, otp){
 		}
 
 		writeData('username', username);
+		writeData('token', response.data?.user?.token);
 		writeData('user', JSON.stringify(response.data?.user));
 		writeData('posts', JSON.stringify(response.data?.posts));
 		writeData('loginTime', new Date().getTime());
