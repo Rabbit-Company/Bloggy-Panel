@@ -18,8 +18,5 @@
   "homepage": "https://github.com/Rabbit-Company/Bloggy-Panel#readme",
   "devDependencies": {
     "tailwindcss": "^3.2.4"
-  },
-  "dependencies": {
-    "@tailwindcss/forms": "^0.5.3"
   }
 }
