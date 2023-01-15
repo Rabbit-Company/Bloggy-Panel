@@ -28,3 +28,33 @@ loadData().then(() => {
 		document.getElementById('yubico-list').innerHTML = html;
 	}
 });
+
+function deleteAccount() {
+	changeDialog(10, "Deleting account...");
+	show('dialog');
+
+	Bloggy.deleteAccount(readData('username'), readData('token')).then(response => {
+
+		if (response['error'] != 0) {
+			showDialogButtons();
+			changeDialog(2, response.info);
+			return;
+		}
+
+		logout();
+
+	}).catch(err => {
+		showDialogButtons();
+		switch(err){
+			case 1002:
+				changeDialog(2, "Username can only contain lowercase characters, numbers and hyphens. It also needs to start with lowercase character and be between 4 and 30 characters long.");
+			break;
+			case 1015:
+				changeDialog(2, "Token is invalid. Please login first to get the token.");
+			break;
+			default:
+				changeDialog(2, "Server is unreachable!");
+			break;
+		}
+	});
+}
