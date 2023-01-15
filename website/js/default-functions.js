@@ -29,6 +29,10 @@ function setText(element, text){
 	document.getElementById(element).innerText = text;
 }
 
+function getWordCount(str) {
+	return str.trim().split(/\s+/).length;
+}
+
 function animateButton(id, enabled){
 	if(enabled){
 		document.getElementById(id + "-color").className = "quaternaryBackgroundColor pointer-events-none absolute h-4 w-9 mx-auto rounded-full transition-colors ease-in-out duration-200";
