@@ -44,5 +44,5 @@ document.getElementById("title").addEventListener("input", () => {
 		}
 		if(/^([a-zA-Z0-9])$/.test(title[i])) id += title[i];
 	}
-	document.getElementById("id").value = id;
+	document.getElementById("id").value = id.toLowerCase();
 });
