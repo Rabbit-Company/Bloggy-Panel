@@ -2,9 +2,10 @@ loadData().then(() => {
 	startAuthenticator();
 
 	let posts = JSON.parse(readData('posts'));
+	let user = JSON.parse(readData('user'));
 
 	// Edit
-	if(parms.get("edit") != null && parms.get("edit").length >= 5) {
+	if(parms.get("edit") != null && parms.get("edit").length >= 5){
 		let id = parms.get("edit");
 		for(let i = 0; i < posts.length; i++){
 			if(posts[i].id !== id) continue;
@@ -14,6 +15,9 @@ loadData().then(() => {
 			document.getElementById("category").value = posts[i].category;
 			document.getElementById("language").value = posts[i].language;
 		}
+	}else{
+		document.getElementById("category").value = user.category;
+		document.getElementById("language").value = user.language;
 	}
 
 });
