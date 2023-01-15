@@ -17,6 +17,9 @@ loadData().then(() => {
 			document.getElementById("tag").value = posts[i].tag;
 			document.getElementById("keywords").value = posts[i].keywords;
 			document.getElementById("content").value = posts[i].markdown;
+
+			document.getElementById("id").readOnly = true;
+			document.getElementById("btn-post").innerText = "Edit";
 		}
 	}else{
 		document.getElementById("category").value = user.category;
