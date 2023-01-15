@@ -206,6 +206,14 @@ document.getElementById("delete-account-btn").addEventListener("click", () => {
 	show('dialog');
 });
 
+document.getElementById("upload-avatar").addEventListener("input", () => {
+	let avatar = document.getElementById("upload-avatar");
+	console.log(avatar.size);
+	console.log(avatar.name);
+	console.log(avatar.files[0]);
+
+});
+
 document.getElementById("signout-link").addEventListener("click", () => {
 	logout();
 });
