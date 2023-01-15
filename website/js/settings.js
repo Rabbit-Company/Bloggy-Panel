@@ -207,11 +207,15 @@ document.getElementById("delete-account-btn").addEventListener("click", () => {
 });
 
 document.getElementById("upload-avatar").addEventListener("input", () => {
-	let avatar = document.getElementById("upload-avatar");
-	console.log(avatar.size);
-	console.log(avatar.name);
-	console.log(avatar.files[0]);
+	let avatar = document.getElementById("upload-avatar").files[0];
 
+	if(avatar.size > 300_000){
+		changeDialog(2, "Avatars can't be bigger than 300kB. Please choose smaller image.");
+		show("dialog");
+		return;
+	}
+
+	console.log("Uploading...");
 });
 
 document.getElementById("signout-link").addEventListener("click", () => {
