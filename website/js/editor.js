@@ -11,6 +11,8 @@ loadData().then(() => {
 			document.getElementById("id").value = id;
 			document.getElementById("title").value = posts[i].title;
 			document.getElementById("description").value = posts[i].description;
+			document.getElementById("category").value = posts[i].category;
+			document.getElementById("language").value = posts[i].language;
 		}
 	}
 
