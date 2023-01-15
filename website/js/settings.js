@@ -35,13 +35,14 @@ function saveAvatar(avatar) {
 
 	Bloggy.saveAvatar(readData('username'), readData('token'), avatar).then(response => {
 
+		showDialogButtons();
+
 		if (typeof response['error'] === 'undefined') {
 			changeDialog(2, "Server is unreachable!");
 			return;
 		}
 
 		if (response['error'] != 0) {
-			showDialogButtons();
 			changeDialog(2, response.info);
 			return;
 		}
