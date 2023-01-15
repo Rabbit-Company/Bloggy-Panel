@@ -226,6 +226,54 @@
 			});
 		}
 
+		static createPost(username, token, id, title, description, picture, markdown, category, language,  tag, keywords){
+			return new Promise((resolve, reject) => {
+				if(!Validate.username(username)) return reject(1002);
+				if(!Validate.token(token)) return reject(1015);
+				if(!Validate.postID(id)) return reject(1018);
+				if(!Validate.postTitle(title)) return reject(1019);
+				if(!Validate.postDescription(description)) return reject(1020);
+				if(!Validate.postPicture(picture)) return reject(1021);
+				if(!Validate.postMarkdown(markdown)) return reject(1022);
+				if(!Validate.category(category)) return reject(1012);
+				if(!Validate.language(language)) return reject(1013);
+				if(!Validate.postTag(tag)) return reject(1023);
+				if(!Validate.postKeywords(keywords)) return reject(1024);
+
+				let data = {
+					username: username,
+					token: token,
+					id: id,
+					title: title,
+					description: description,
+					picture: picture,
+					markdown: markdown,
+					category: category,
+					language: language,
+					tag: tag,
+					keywords: keywords
+				}
+
+				fetch("https://api.bloggy.io/createPost", {
+					method: "POST",
+					headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+					body: JSON.stringify(data)
+				}).then((result) => {
+					if (result.status != 200 && result.status != 429) return reject(1000);
+					return result.text();
+				}).then((response) => {
+					try{
+						let data = JSON.parse(response);
+						return resolve(data);
+					}catch(error){
+						return reject(1000);
+					}
+				}).catch(() => {
+					return reject(1000);
+				});
+			});
+		}
+
 		static deleteAccount(username, token){
 			return new Promise((resolve, reject) => {
 				if(!Validate.username(username)) return reject(1002);
