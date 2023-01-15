@@ -52,3 +52,9 @@ document.getElementById("title").addEventListener("input", () => {
 	}
 	document.getElementById("id").value = id.toLowerCase();
 });
+
+document.getElementById("keywords").addEventListener("input", () => {
+	let keywords = document.getElementById("keywords").value;
+	keywords = keywords.replaceAll(' ', ',');
+	document.getElementById("keywords").value = keywords.toLowerCase();
+});
