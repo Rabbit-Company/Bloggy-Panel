@@ -1,5 +1,5 @@
 loadData().then(() => {
-	if(isSessionValid()) window.location.href = 'passwords.html';
+	if(isSessionValid()) window.location.href = 'panel.html';
 	if(readData('username') !== null && typeof(readData('username')) !== 'undefined') document.getElementById('username').value = readData('username');
 });
 
