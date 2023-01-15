@@ -46,6 +46,7 @@ document.getElementById("main-menu-toggle-btn").addEventListener("click", () => 
 
 document.getElementById("btn-post").addEventListener("click", () => {
 	changeDialog(6);
+	show('dialog');
 });
 
 document.getElementById("title").addEventListener("input", () => {
