@@ -74,8 +74,7 @@ loadData().then(() => {
 		let id = posts[i].id;
 
 		document.getElementById("edit-post-" + id).addEventListener("click", () => {
-			changeDialog(4, id);
-			show('dialog');
+			window.location.href = 'editor.html?edit=' + id;
 		});
 
 		document.getElementById("delete-post-" + id).addEventListener("click", () => {
