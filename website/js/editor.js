@@ -16,6 +16,7 @@ loadData().then(() => {
 			document.getElementById("language").value = posts[i].language;
 			document.getElementById("tag").value = posts[i].tag;
 			document.getElementById("keywords").value = posts[i].keywords;
+			document.getElementById("content").value = posts[i].markdown;
 		}
 	}else{
 		document.getElementById("category").value = user.category;
