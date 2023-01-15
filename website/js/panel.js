@@ -196,7 +196,7 @@ function changeDialog(style, text) {
 function deletePost(id){
 	changeDialog(8, "Deleting post...");
 
-	Bloggy.deletePassword(readData('username'), readData('token'), id).then(response => {
+	Bloggy.deletePost(readData('username'), readData('token'), id).then(response => {
 
 		showDialogButtons();
 
