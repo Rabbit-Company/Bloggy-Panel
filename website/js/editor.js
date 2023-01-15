@@ -38,7 +38,12 @@ document.getElementById("title").addEventListener("input", () => {
 	let title = document.getElementById("title").value;
 	let id = "";
 	for(let i = 0; i < title.length; i++){
-		console.log(title[i]);
+		if(title[i] == ' '){
+			id += '-';
+			continue;
+		}
+		if(/^([a-zA-Z0-9])$/.test(title[i])) continue;
+		id += title[i];
 	}
 	document.getElementById("id").value = id;
 });
