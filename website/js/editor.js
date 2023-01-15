@@ -90,7 +90,7 @@ document.getElementById("tabs-1-tab-2").addEventListener("click", () => {
 
 	let created = new Date().toISOString().split('T')[0];
 	let readTime = Math.round(getWordCount(content) / 200);
-	let avatar = "https://cdn.bloggy.io/avatars/" + user.username + ".png";
+	let avatar = "https://cdn.bloggy.io/avatars/" + user.username;
 
 	let html = "<h1 class='post-title'>" + document.getElementById("title").value + "</h1>";
 	html += "<div class='flex space-x-1 f16'><time datetime='" + created + "'>" + created + "</time><span aria-hidden='true'>&middot;</span><span>" + readTime + " min read</span></div>";

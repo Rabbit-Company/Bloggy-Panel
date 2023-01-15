@@ -3,7 +3,7 @@ function displayPosts(amount = 9){
 	let html = "";
 	postIDs.forEach(key => {
 		if(counter >= amount) return;
-		let avatar = imagesLink + "/avatars/" + username  + ".png";
+		let avatar = imagesLink + "/avatars/" + username;
 		let lang = (typeof(posts[key].language) === 'string') ? posts[key].language : language;
 		let picture = (posts[key].picture.startsWith('http')) ? posts[key].picture : imagesLink + "/posts/" + username + "/" + posts[key].picture;
 		let location = "/creator/" + username + "/" + lang + "/" + key;
@@ -50,7 +50,7 @@ function loadMorePosts(amount = 9){
 	for(let i = 1; i <= amount; i++){
 		if(lastPostIndex + 1 >= postIDs.length) break;
 		let key = postIDs[lastPostIndex+1];
-		let avatar = imagesLink + "/avatars/" + username + ".png";
+		let avatar = imagesLink + "/avatars/" + username;
 		let lang = (typeof(posts[key].language) === 'string') ? posts[key].language : language;
 		let picture = (posts[key].picture.startsWith('http')) ? posts[key].picture : imagesLink + "/posts/" + username + "/" + posts[key].picture;
 		let location = "/creator/" + username + "/" + lang + "/" + key;
