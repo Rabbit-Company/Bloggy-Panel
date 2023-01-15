@@ -36,6 +36,9 @@ document.getElementById("main-menu-toggle-btn").addEventListener("click", () => 
 
 document.getElementById("title").addEventListener("input", () => {
 	let title = document.getElementById("title").value;
-	let id = title.toLowerCase().replaceAll(" ", "-");
+	let id = "";
+	for(let i = 0; i < title.length; i++){
+		console.log(title[i]);
+	}
 	document.getElementById("id").value = id;
 });
