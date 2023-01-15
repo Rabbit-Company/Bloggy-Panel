@@ -81,6 +81,10 @@ document.getElementById("page").addEventListener("keypress", (event) => {
 	window.location.assign("?page=" + document.getElementById("page").value);
 });
 
+document.getElementById("create-post-btn").addEventListener("click", () => {
+	window.location.href = 'editor.html';
+})
+
 document.getElementById("dialog-button-cancel").addEventListener("click", () => {
 	hide('dialog');
 });
