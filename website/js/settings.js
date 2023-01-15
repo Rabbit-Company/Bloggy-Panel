@@ -29,6 +29,44 @@ loadData().then(() => {
 	}
 });
 
+function saveAvatar(avatar) {
+	changeDialog(10, "Uploading avatar...");
+	show('dialog');
+
+	Bloggy.saveAvatar(readData('username'), readData('token'), avatar).then(response => {
+
+		if (typeof response['error'] === 'undefined') {
+			changeDialog(2, "Server is unreachable!");
+			return;
+		}
+
+		if (response['error'] != 0) {
+			showDialogButtons();
+			changeDialog(2, response.info);
+			return;
+		}
+
+		changeDialog(7, "Avatar successfully changed.");
+
+	}).catch(err => {
+		showDialogButtons();
+		switch(err){
+			case 1002:
+				changeDialog(2, "Username can only contain lowercase characters, numbers and hyphens. It also needs to start with lowercase character and be between 4 and 30 characters long.");
+			break;
+			case 1015:
+				changeDialog(2, "Token is invalid. Please login first to get the token.");
+			break;
+			case 1029:
+				changeDialog(2, "Avatar can't be bigger than 300kB. Please choose smaller image.");
+			break;
+			default:
+				changeDialog(2, "Server is unreachable!");
+			break;
+		}
+	});
+}
+
 function deleteAccount() {
 	changeDialog(10, "Deleting account...");
 	show('dialog');
@@ -208,14 +246,7 @@ document.getElementById("delete-account-btn").addEventListener("click", () => {
 
 document.getElementById("upload-avatar").addEventListener("input", () => {
 	let avatar = document.getElementById("upload-avatar").files[0];
-
-	if(avatar.size > 300_000){
-		changeDialog(2, "Avatars can't be bigger than 300kB. Please choose smaller image.");
-		show("dialog");
-		return;
-	}
-
-	console.log("Uploading...");
+	saveAvatar(avatar);
 });
 
 document.getElementById("signout-link").addEventListener("click", () => {
