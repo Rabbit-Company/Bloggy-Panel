@@ -54,7 +54,7 @@ loadData().then(() => {
 
 		html_posts += "<tr class='passwordsBorderColor'><td class='px-8 py-4 max-w-xs overflow-hidden'><div class='flex items-center'><div class='flex-shrink-0 hidden md:block'>";
 		html_posts += "<img class='h-48 w-full object-cover' src='" + picture + "' alt=''>";
-		html_posts += "</div><div class='ml-4'><div class='tertiaryColor text-lg font-medium max-w-[14rem] sm:max-w-[16rem] md:max-w-[24rem] lg:max-w-[34rem] xl:max-w-[50rem] 2xl:max-w-[54rem] overflow-hidden text-ellipsis'>";
+		html_posts += "</div><div class='ml-4'><div class='tertiaryColor text-md md:text-lg font-medium max-w-[14rem] sm:max-w-[16rem] md:max-w-[24rem] lg:max-w-[34rem] xl:max-w-[50rem] 2xl:max-w-[54rem] overflow-hidden text-ellipsis'>";
 		html_posts += posts[i].title;
 		html_posts += "</div><div class='secondaryColor hidden md:block text-sm max-w-[14rem] sm:max-w-[16rem] md:max-w-[24rem] lg:max-w-[34rem] xl:max-w-[50rem] 2xl:max-w-[54rem] overflow-hidden text-ellipsis'>";
 		html_posts += posts[i].description;
