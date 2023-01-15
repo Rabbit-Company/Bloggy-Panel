@@ -113,25 +113,24 @@ function hideDialogButtons(){
 }
 
 function encryptPassword(password){
-	return XChaCha20.encrypt(password, readData('token') + navigator.geolocation + readData('loginTime') + readData('url') + readData('username'));
+	return XChaCha20.encrypt(password, readData('token') + navigator.geolocation + readData('loginTime') + readData('username'));
 }
 
 function decryptPassword(password){
-	return XChaCha20.decrypt(password, readData('token') + navigator.geolocation + readData('loginTime') + readData('url') + readData('username'));
+	return XChaCha20.decrypt(password, readData('token') + navigator.geolocation + readData('loginTime') + readData('username'));
 }
 
 function clearStorage(){
-	deleteData('password');
 	deleteData('user');
-	deleteData('posts');
 	deleteData('token');
+	deleteData('posts');
 	deleteData('auth');
 	deleteData('yubico');
 	deleteData('loginTime');
 }
 
 function isSessionValid(){
-	if(readData('username') == null || typeof(readData('username')) == 'undefined' || readData('user') == null || typeof(readData('user')) == 'undefined' || readData('posts') == null || typeof(readData('posts')) == 'undefined' || readData('loginTime') == null || typeof(readData('loginTime')) == 'undefined' || readData('sessionDuration') == null || typeof(readData('sessionDuration')) == 'undefined' || ((parseFloat(readData('loginTime')) + (readData('sessionDuration') * 60000))) < new Date().getTime()){
+	if(readData('username') == null || typeof(readData('username')) == 'undefined' || readData('token') == null || typeof(readData('token')) == 'undefined' || readData('user') == null || typeof(readData('user')) == 'undefined' || readData('posts') == null || typeof(readData('posts')) == 'undefined' || readData('loginTime') == null || typeof(readData('loginTime')) == 'undefined' || readData('sessionDuration') == null || typeof(readData('sessionDuration')) == 'undefined' || ((parseFloat(readData('loginTime')) + (readData('sessionDuration') * 60000))) < new Date().getTime()){
 		clearStorage();
 		return false;
 	}
