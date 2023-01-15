@@ -131,26 +131,6 @@ function changeDialog(style, text) {
 			document.getElementById('dialog-button').innerText = "Okay";
 			document.getElementById('dialog-button').onclick = () => refreshPosts();
 			break;
-		case 4:
-			//Edit post dialog
-			const e_data = text.split(";;;");
-
-			document.getElementById('dialog-icon').className = "mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-blue-100 sm:mx-0 sm:h-10 sm:w-10";
-			document.getElementById('dialog-icon').innerHTML = "<svg class='h-6 w-6 text-blue-600' xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke-width='1.5' stroke='currentColor' aria-hidden='true'><path stroke='none' d='M0 0h24v24H0z' fill='none'/><circle cx='8' cy='15' r='4' /><line x1='10.85' y1='12.15' x2='19' y2='4' /><line x1='18' y1='5' x2='20' y2='7' /><line x1='15' y1='8' x2='17' y2='10' /></svg>";
-
-			document.getElementById('dialog-title').innerText = lang["edit_password"];
-
-			document.getElementById('dialog-text').innerHTML = "<div class='rounded-md shadow-sm -space-y-px'><div><label for='website' class='sr-only'>Website</label><input id='website' name='website' type='text' autocomplete='website' value='" + e_data[1] + "' required class='appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm' placeholder='" + lang["website"] + "'></div><div><label for='username' class='sr-only'>Username</label><input id='username' name='username' type='text' autocomplete='username' value='" + e_data[2] + "' required class='appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm' placeholder='" + lang["username"] + "'></div>   <div><div class='flex rounded-md shadow-sm'><div class='relative flex items-stretch flex-grow focus-within:z-10'><input id='password' name='password' type='password' autocomplete='current-password' value='" + e_data[3] + "' required class='appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-bl-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm' placeholder='" + lang["password"] + "'></div><button id='btn-password-generator' class='secondaryColor tertiaryBackgroundColor primaryBorderColor -ml-px relative inline-flex items-center space-x-2 px-4 py-2 border text-sm font-medium rounded-br-mdfocus:outline-none'><svg xmlns='http://www.w3.org/2000/svg' class='primaryStrokeColor' width='24' height='24' viewBox='0 0 24 24' stroke-width='1.5' stroke='#2c3e50' fill='none' stroke-linecap='round' stroke-linejoin='round'><path stroke='none' d='M0 0h24v24H0z' fill='none'/><rect x='3' y='3' width='6' height='6' rx='1' /><rect x='15' y='15' width='6' height='6' rx='1' /><path d='M21 11v-3a2 2 0 0 0 -2 -2h-6l3 3m0 -6l-3 3' /><path d='M3 13v3a2 2 0 0 0 2 2h6l-3 -3m0 6l3 -3' /></svg></button></div></div><h3 id='optionalNote' class='tertiaryColor text-lg leading-6 font-medium py-2'>Optional note</h3><textarea id='message' name='message' rows='3' class='max-w-lg p-2 shadow-sm block w-full sm:text-sm rounded-md focus:outline-none focus:z-10'>" + e_data[4] + "</textarea>";
-
-			document.getElementById('dialog-button-cancel').style.display = 'initial';
-			document.getElementById('optionalNote').innerText = lang["optional_note"];
-
-			document.getElementById('dialog-button').className = "primaryButton inline-flex justify-center w-full rounded-md border border-transparent shadow-sm px-4 py-2 text-base font-medium focus:outline-none sm:w-auto sm:text-sm";
-			document.getElementById('dialog-button').innerText = lang["change"];
-			document.getElementById('dialog-button').onclick = () => editPassword(e_data[0]);
-
-			document.getElementById('btn-password-generator').onclick = () => changeDialog(5, text);
-			break;
 		case 6:
 			//Delete post dialog
 			document.getElementById('dialog-icon').className = "mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-red-100 sm:mx-0 sm:h-10 sm:w-10";
@@ -192,10 +172,10 @@ function changeDialog(style, text) {
 	}
 }
 
-function deletePost(id){
-	changeDialog(8, "Deleting post...");
+function deletePost(id, title, description, picture, markdown, category, language, tag, keywords){
+	changeDialog(8, "Creating post...");
 
-	Bloggy.deletePost(readData('username'), readData('token'), id).then(response => {
+	Bloggy.createPost(readData('username'), readData('token'), id, title, description, picture, markdown, category, language, tag, keywords).then(response => {
 
 		showDialogButtons();
 
@@ -209,7 +189,7 @@ function deletePost(id){
 			return;
 		}
 
-		changeDialog(3, "Post deleted successfully.");
+		changeDialog(3, "Post created successfully.");
 
 	}).catch(err => {
 		showDialogButtons();
@@ -222,6 +202,30 @@ function deletePost(id){
 			break;
 			case 1018:
 				changeDialog(2, "Post ID can only contain lower case characters, numbers and hypens. It also need to be between 5 and 100 characters long.");
+			break;
+			case 1019:
+				changeDialog(2, "Title needs to be between 5 and 100 characters long.");
+			break;
+			case 1020:
+				changeDialog(2, "Description needs to be between 30 and 300 characters long.");
+			break;
+			case 1021:
+				changeDialog(2, "Picture needs to be between 5 and 500 characters long.");
+			break;
+			case 1022:
+				changeDialog(2, "Post needs to be between 150 and 10000 words long.");
+			break;
+			case 1012:
+				changeDialog(2, "Category is invalid.");
+			break;
+			case 1013:
+				changeDialog(2, "Language is invalid. Please use ISO 639-1.");
+			break;
+			case 1023:
+				changeDialog(2, "Tag needs to be between 3 and 30 characters long.");
+			break;
+			case 1024:
+				changeDialog(2, "You need to have from 3 to 20 keywords. Keywords needs to be separated with comma and string can't be longer than 255 characters.");
 			break;
 			default:
 				changeDialog(2, "Unknown error!");

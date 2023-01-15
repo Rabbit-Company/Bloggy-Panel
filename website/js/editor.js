@@ -44,6 +44,10 @@ document.getElementById("main-menu-toggle-btn").addEventListener("click", () => 
 	toggleMenu();
 });
 
+document.getElementById("btn-post").addEventListener("click", () => {
+
+});
+
 document.getElementById("title").addEventListener("input", () => {
 	if(document.getElementById("id").readOnly) return;
 	let title = document.getElementById("title").value;
@@ -100,3 +104,97 @@ document.getElementById("tabs-1-tab-2").addEventListener("click", () => {
 	document.getElementById('post').innerHTML = html;
 	fshow("tabs-1-panel-2", "block");
 });
+
+function changeDialog(style, text) {
+	switch (style) {
+		case 3:
+			//Success dialog
+			document.getElementById('dialog-icon').className = "mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-green-100 sm:mx-0 sm:h-10 sm:w-10";
+			document.getElementById('dialog-icon').innerHTML = "<svg class='h-6 w-6 text-green-600' xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='currentColor' aria-hidden='true'><path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M5 13l4 4L19 7' /></svg>";
+
+			document.getElementById('dialog-title').innerText = "SUCCESS";
+			document.getElementById('dialog-text').innerText = text;
+			document.getElementById('dialog-button-cancel').style.display = 'none';
+
+			document.getElementById('dialog-button').className = "successButton inline-flex justify-center w-full rounded-md border border-transparent shadow-sm px-4 py-2 text-base font-medium focus:outline-none sm:w-auto sm:text-sm";
+			document.getElementById('dialog-button').innerText = "Okay";
+			document.getElementById('dialog-button').onclick = () => refreshPosts();
+			break;
+		case 6:
+			//Delete post dialog
+			document.getElementById('dialog-icon').className = "mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-red-100 sm:mx-0 sm:h-10 sm:w-10";
+			document.getElementById('dialog-icon').innerHTML = "<svg class='h-6 w-6 text-red-600' xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='currentColor' aria-hidden='true'><path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z' /></svg>";
+
+			document.getElementById('dialog-title').innerText = "Delete post";
+			document.getElementById('dialog-text').innerText = "Are you sure you want to delete your post? Your post will be permanently removed from the server. This action can NOT be undone.";
+
+			document.getElementById('dialog-button-cancel').style.display = 'initial';
+
+			document.getElementById('dialog-button').className = "dangerButton inline-flex justify-center w-full rounded-md border border-transparent shadow-sm px-4 py-2 text-base font-medium focus:outline-none sm:w-auto sm:text-sm";
+			document.getElementById('dialog-button').innerText = "Delete";
+			document.getElementById('dialog-button').onclick = () => deletePost(text);
+			break;
+		case 7:
+			//Copied successfully
+			document.getElementById('dialog-icon').className = "mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-green-100 sm:mx-0 sm:h-10 sm:w-10";
+			document.getElementById('dialog-icon').innerHTML = "<svg class='h-6 w-6 text-green-600' xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='currentColor' aria-hidden='true'><path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M5 13l4 4L19 7' /></svg>";
+
+			document.getElementById('dialog-title').innerText = "SUCCESS";
+			document.getElementById('dialog-text').innerText = text;
+
+			document.getElementById('dialog-button-cancel').style.display = 'none';
+
+			document.getElementById('dialog-button').className = "successButton inline-flex justify-center w-full rounded-md border border-transparent shadow-sm px-4 py-2 text-base font-medium focus:outline-none sm:w-auto sm:text-sm";
+			document.getElementById('dialog-button').innerText = "Okay";
+			document.getElementById('dialog-button').onclick = () => hide('dialog');
+			break;
+		case 8:
+			//Loading...
+			document.getElementById('dialog-icon').className = "mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-blue-100 sm:mx-0 sm:h-10 sm:w-10";
+			document.getElementById('dialog-icon').innerHTML = "<svg class='h-6 w-6 text-blue-600 animate-spin' xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke-width='1.5' stroke='currentColor' aria-hidden='true'><path stroke='none' d='M0 0h24v24H0z' fill='none'></path><path d='M12 3a9 9 0 1 0 9 9'></path></svg>";
+
+			document.getElementById('dialog-title').innerText = "PLEASE WAIT";
+			document.getElementById('dialog-text').innerHTML = text;
+
+			hideDialogButtons();
+		break;
+	}
+}
+
+function createPost(id){
+	changeDialog(8, "Deleting post...");
+
+	Bloggy.deletePost(readData('username'), readData('token'), id).then(response => {
+
+		showDialogButtons();
+
+		if (typeof response['error'] === 'undefined') {
+			changeDialog(2, "Server is unreachable!");
+			return;
+		}
+
+		if (response['error'] != 0) {
+			changeDialog(2, response.info);
+			return;
+		}
+
+		changeDialog(3, "Post deleted successfully.");
+
+	}).catch(err => {
+		showDialogButtons();
+		switch(err){
+			case 1002:
+				changeDialog(2, "Username can only contain lowercase characters, numbers and hyphens. It also needs to start with lowercase character and be between 4 and 30 characters long.");
+			break;
+			case 1015:
+				changeDialog(2, "Token is invalid. Please login again to get new token.");
+			break;
+			case 1018:
+				changeDialog(2, "Post ID can only contain lower case characters, numbers and hypens. It also need to be between 5 and 100 characters long.");
+			break;
+			default:
+				changeDialog(2, "Unknown error!");
+			break;
+		}
+	});
+}

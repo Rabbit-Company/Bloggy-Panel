@@ -226,7 +226,7 @@
 			});
 		}
 
-		static createPost(username, token, id, title, description, picture, markdown, category, language,  tag, keywords){
+		static createPost(username, token, id, title, description, picture, markdown, category, language, tag, keywords){
 			return new Promise((resolve, reject) => {
 				if(!Validate.username(username)) return reject(1002);
 				if(!Validate.token(token)) return reject(1015);
