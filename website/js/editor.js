@@ -42,8 +42,7 @@ document.getElementById("title").addEventListener("input", () => {
 			id += '-';
 			continue;
 		}
-		if(/^([a-zA-Z0-9])$/.test(title[i])) continue;
-		id += title[i];
+		if(/^([a-zA-Z0-9])$/.test(title[i])) id += title[i];
 	}
 	document.getElementById("id").value = id;
 });
