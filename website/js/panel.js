@@ -21,7 +21,31 @@ loadData().then(() => {
 		posts = tempArray;
 	}
 
-	document.getElementById("stats-total-posts").innerText = posts.length;
+	let amount = posts.length;
+	document.getElementById("stats-total-posts").innerText = amount;
+
+	//Page settings
+	let page = (parms.get("page") != null && IsNumeric(parms.get("page")) && parseFloat(parms.get("page")) >= 1) ? parseFloat(parms.get("page")) : 1;
+	let limit = (search == null) ? 25 : amount;
+	let startFrom = (page - 1) * limit;
+	let totalPages = Math.ceil(amount / limit);
+	if(totalPages != 0 && page > totalPages) window.location.href = 'panel.html?page=' + totalPages;
+	let stopOn = (startFrom+limit > amount) ? amount : startFrom+limit;
+
+	//Pagination
+	if(search == null && totalPages > 1) fshow('pagination', 'block');
+	document.getElementById("label-startFrom").innerText = startFrom+1;
+	document.getElementById("label-stopOn").innerText = stopOn;
+	document.getElementById("label-totalPasswords").innerText = amount;
+
+	if(page == 1) fhide('pagination-left');
+	if(page == totalPages) fhide('pagination-right');
+
+	document.getElementById("pagination-left").href = "?page=" + (page-1);
+	document.getElementById("page").value = page;
+	document.getElementById("page").max = totalPages;
+	document.getElementById("pagination-right").href = "?page=" + (page+1);
+
 });
 
 document.getElementById("search").addEventListener("keypress", (event) => {
