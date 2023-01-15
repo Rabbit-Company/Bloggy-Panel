@@ -66,5 +66,7 @@ document.getElementById("tabs-1-tab-1").addEventListener("click", () => {
 
 document.getElementById("tabs-1-tab-2").addEventListener("click", () => {
 	fhide("tabs-1-panel-1");
+	let content = document.getElementById("content").value;
+	document.getElementById('preview').innerHTML = marked.parse(content);
 	fshow("tabs-1-panel-2", "block");
 });
