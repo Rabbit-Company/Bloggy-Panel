@@ -112,6 +112,19 @@ function hideDialogButtons(){
 	document.getElementById('dialog-button-cancel').style.display = "none";
 }
 
+function refreshPosts(){
+
+	Bloggy.getPosts(readData('username'), readData('token')).then(response => {
+		if(typeof response['error'] === 'undefined') return;
+		if(response['error'] != 0) return;
+
+		writeData('posts', JSON.stringify(response.data));
+
+		location.assign('panel.html');
+	}).catch();
+
+}
+
 function encryptPassword(password){
 	return XChaCha20.encrypt(password, readData('token') + navigator.geolocation + readData('loginTime') + readData('username'));
 }
