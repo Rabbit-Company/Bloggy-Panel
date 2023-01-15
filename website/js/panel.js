@@ -20,6 +20,8 @@ loadData().then(() => {
 		}
 		posts = tempArray;
 	}
+
+	document.getElementById("stats-total-posts").innerText = posts.length;
 });
 
 document.getElementById("search").addEventListener("keypress", (event) => {
