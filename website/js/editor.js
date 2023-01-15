@@ -66,7 +66,10 @@ document.getElementById("tabs-1-tab-1").addEventListener("click", () => {
 
 document.getElementById("tabs-1-tab-2").addEventListener("click", () => {
 	fhide("tabs-1-panel-1");
+	let user = JSON.parse(readData('user'));
 	let content = document.getElementById("content").value;
+	document.getElementById("post-title").innerText = user.title;
+	document.getElementById("post-description").innerText = user.description;
 	document.getElementById('post').innerHTML = marked.parse(content, {
 		gfm: true,
 		breaks: true,
