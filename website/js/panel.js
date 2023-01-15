@@ -54,10 +54,11 @@ loadData().then(() => {
 
 		html_posts += "<tr class='passwordsBorderColor'><td class='px-8 py-4 max-w-xs whitespace-nowrap overflow-hidden'><div class='flex items-center'><div class='flex-shrink-0'>";
 		html_posts += "<img class='h-48 w-full object-cover' src='" + picture + "' alt=''>";
-		html_posts += "</div><div class='ml-4'><div class='tertiaryColor text-sm font-medium max-w-[14rem] sm:max-w-[16rem] md:max-w-[24rem] lg:max-w-[34rem] xl:max-w-[50rem] 2xl:max-w-[54rem] overflow-hidden text-ellipsis'>";
+		html_posts += "</div><div class='ml-4'><div class='tertiaryColor text-lg font-medium max-w-[14rem] sm:max-w-[16rem] md:max-w-[24rem] lg:max-w-[34rem] xl:max-w-[50rem] 2xl:max-w-[54rem] overflow-hidden text-ellipsis'>";
 		html_posts += posts[i].title;
 		html_posts += "</div><div class='secondaryColor text-sm max-w-[14rem] sm:max-w-[16rem] md:max-w-[24rem] lg:max-w-[34rem] xl:max-w-[50rem] 2xl:max-w-[54rem] overflow-hidden text-ellipsis'>";
 		html_posts += posts[i].description;
+		html_posts += "</div></div></div></td><td class='px-1 py-4 w-16 whitespace-nowrap'>";
 		//Copy Id
 		html_posts += "<span id='copy-id-" + id + "' role='button'>";
 		html_posts += "<svg class='m-auto' xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' stroke-width='1.5' stroke='#2c3e50' fill='none' stroke-linecap='round' stroke-linejoin='round'><path stroke='none' d='M0 0h24v24H0z' fill='none'/><circle cx='12' cy='7' r='4' /><path d='M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2' /></svg></span></td><td class='px-1 py-4 w-16 whitespace-nowrap'>";
