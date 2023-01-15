@@ -16,7 +16,7 @@ loadData().then(() => {
 			const tag = posts[i].tag;
 			const keywords = posts[i].keywords;
 
-			if(title.includes(search) || tag.includes(search) || keywords.includes(search) || tempArray.push(posts[i]));
+			if(title.includes(search) || tag.includes(search) || keywords.includes(search)) tempArray.push(posts[i]);
 		}
 		posts = tempArray;
 	}
