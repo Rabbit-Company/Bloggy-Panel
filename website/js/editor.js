@@ -58,3 +58,13 @@ document.getElementById("keywords").addEventListener("input", () => {
 	keywords = keywords.replaceAll(' ', ',');
 	document.getElementById("keywords").value = keywords.toLowerCase();
 });
+
+document.getElementById("tabs-1-tab-1").addEventListener("click", () => {
+	fhide("tabs-1-panel-2");
+	fshow("tabs-1-panel-1");
+});
+
+document.getElementById("tabs-1-tab-2").addEventListener("click", () => {
+	fhide("tabs-1-panel-1");
+	fshow("tabs-1-panel-2");
+});
