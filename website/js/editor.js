@@ -161,10 +161,10 @@ function changeDialog(style, text) {
 	}
 }
 
-function createPost(id){
-	changeDialog(8, "Deleting post...");
+function createPost(id, title, description, picture, markdown, category, language, tag, keywords){
+	changeDialog(8, "Creating post...");
 
-	Bloggy.deletePost(readData('username'), readData('token'), id).then(response => {
+	Bloggy.createPost(readData('username'), readData('token'), id, title, description, picture, markdown, category, language, tag, keywords).then(response => {
 
 		showDialogButtons();
 
@@ -178,7 +178,7 @@ function createPost(id){
 			return;
 		}
 
-		changeDialog(3, "Post deleted successfully.");
+		changeDialog(3, "Post created successfully.");
 
 	}).catch(err => {
 		showDialogButtons();
@@ -191,6 +191,30 @@ function createPost(id){
 			break;
 			case 1018:
 				changeDialog(2, "Post ID can only contain lower case characters, numbers and hypens. It also need to be between 5 and 100 characters long.");
+			break;
+			case 1019:
+				changeDialog(2, "Title needs to be between 5 and 100 characters long.");
+			break;
+			case 1020:
+				changeDialog(2, "Description needs to be between 30 and 300 characters long.");
+			break;
+			case 1021:
+				changeDialog(2, "Picture needs to be between 5 and 500 characters long.");
+			break;
+			case 1022:
+				changeDialog(2, "Post needs to be between 150 and 10000 words long.");
+			break;
+			case 1012:
+				changeDialog(2, "Category is invalid.");
+			break;
+			case 1013:
+				changeDialog(2, "Language is invalid. Please use ISO 639-1.");
+			break;
+			case 1023:
+				changeDialog(2, "Tag needs to be between 3 and 30 characters long.");
+			break;
+			case 1024:
+				changeDialog(2, "You need to have from 3 to 20 keywords. Keywords needs to be separated with comma and string can't be longer than 255 characters.");
 			break;
 			default:
 				changeDialog(2, "Unknown error!");
