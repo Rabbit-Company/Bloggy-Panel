@@ -45,6 +45,7 @@ document.getElementById("main-menu-toggle-btn").addEventListener("click", () => 
 });
 
 document.getElementById("title").addEventListener("input", () => {
+	if(document.getElementById("id").readOnly) return;
 	let title = document.getElementById("title").value;
 	let id = "";
 	for(let i = 0; i < title.length; i++){
