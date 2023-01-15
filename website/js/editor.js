@@ -45,7 +45,7 @@ document.getElementById("main-menu-toggle-btn").addEventListener("click", () => 
 });
 
 document.getElementById("btn-post").addEventListener("click", () => {
-
+	changeDialog(6);
 });
 
 document.getElementById("title").addEventListener("input", () => {
@@ -121,18 +121,18 @@ function changeDialog(style, text) {
 			document.getElementById('dialog-button').onclick = () => refreshPosts();
 			break;
 		case 6:
-			//Delete post dialog
+			//Create post dialog
 			document.getElementById('dialog-icon').className = "mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-red-100 sm:mx-0 sm:h-10 sm:w-10";
 			document.getElementById('dialog-icon').innerHTML = "<svg class='h-6 w-6 text-red-600' xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='currentColor' aria-hidden='true'><path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z' /></svg>";
 
-			document.getElementById('dialog-title').innerText = "Delete post";
-			document.getElementById('dialog-text').innerText = "Are you sure you want to delete your post? Your post will be permanently removed from the server. This action can NOT be undone.";
+			document.getElementById('dialog-title').innerText = "Create post";
+			document.getElementById('dialog-text').innerText = "Are you sure you want to create your post?";
 
 			document.getElementById('dialog-button-cancel').style.display = 'initial';
 
-			document.getElementById('dialog-button').className = "dangerButton inline-flex justify-center w-full rounded-md border border-transparent shadow-sm px-4 py-2 text-base font-medium focus:outline-none sm:w-auto sm:text-sm";
-			document.getElementById('dialog-button').innerText = "Delete";
-			document.getElementById('dialog-button').onclick = () => deletePost(text);
+			document.getElementById('dialog-button').className = "successButton inline-flex justify-center w-full rounded-md border border-transparent shadow-sm px-4 py-2 text-base font-medium focus:outline-none sm:w-auto sm:text-sm";
+			document.getElementById('dialog-button').innerText = "Create";
+			document.getElementById('dialog-button').onclick = () => createPost();
 			break;
 		case 7:
 			//Copied successfully
@@ -161,7 +161,18 @@ function changeDialog(style, text) {
 	}
 }
 
-function createPost(id, title, description, picture, markdown, category, language, tag, keywords){
+function createPost(){
+
+	let id = document.getElementById("id").value;
+	let title = document.getElementById("title").value;
+	let description = document.getElementById("description").value;
+	let picture = document.getElementById("picture").value;
+	let markdown = document.getElementById("markdown").value;
+	let category = document.getElementById("category").value;
+	let language = document.getElementById("language").value;
+	let tag = document.getElementById("tag").value;
+	let keywords = document.getElementById("keywords").value;
+
 	changeDialog(8, "Creating post...");
 
 	Bloggy.createPost(readData('username'), readData('token'), id, title, description, picture, markdown, category, language, tag, keywords).then(response => {
