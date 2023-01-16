@@ -37,8 +37,6 @@ function getImages(){
 
 	Bloggy.getImages(readData('username'), readData('token')).then(response => {
 
-		showDialogButtons();
-
 		if (typeof response['error'] === 'undefined') {
 			changeDialog(2, "Server is unreachable!");
 			return;
@@ -74,8 +72,6 @@ function deleteImage(key){
 	show('dialog');
 
 	Bloggy.deleteImage(readData('username'), readData('token'), key).then(response => {
-
-		showDialogButtons();
 
 		if (typeof response['error'] === 'undefined') {
 			changeDialog(2, "Server is unreachable!");
