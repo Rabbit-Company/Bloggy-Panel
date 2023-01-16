@@ -20,7 +20,7 @@ function renderImages(images){
 			<button id="image-${key}" type="button" class="absolute inset-0 focus:outline-none"></button></div>
 			<p class="tertiaryColor pointer-events-none mt-2 block truncate text-sm font-medium">${key}</p>
 			<div class="secondaryColor pointer-events-none flex space-x-1 text-sm">
-				<time>${images[key].uploaded}</time>
+				<time>${new Date(images[key].uploaded).toISOString().split('T')[0]}</time>
 				<span aria-hidden="true">·</span>
 				<span>${Math.round(images[key].size / 1000)} kB</span>
 			</div></li>`;
