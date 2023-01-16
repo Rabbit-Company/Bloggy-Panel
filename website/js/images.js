@@ -52,7 +52,6 @@ function getImages(){
 		hide('dialog');
 
 	}).catch(err => {
-		//showDialogButtons();
 		switch(err){
 			case 1002:
 				changeDialog(2, "Username can only contain lowercase characters, numbers and hyphens. It also needs to start with lowercase character and be between 4 and 30 characters long.");
@@ -73,8 +72,6 @@ function deleteImage(key){
 
 	Bloggy.deleteImage(readData('username'), readData('token'), key).then(response => {
 
-		//showDialogButtons();
-
 		if (typeof response['error'] === 'undefined') {
 			changeDialog(2, "Server is unreachable!");
 			return;
@@ -89,7 +86,6 @@ function deleteImage(key){
 		getImages();
 
 	}).catch(err => {
-		//showDialogButtons();
 		switch(err){
 			case 1002:
 				changeDialog(2, "Username can only contain lowercase characters, numbers and hyphens. It also needs to start with lowercase character and be between 4 and 30 characters long.");
