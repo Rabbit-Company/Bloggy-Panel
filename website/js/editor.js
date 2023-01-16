@@ -95,18 +95,11 @@ document.getElementById("tag").addEventListener("input", () => {
 	document.getElementById("preview_main_tag").innerText = document.getElementById("tag").value;
 });
 
-document.getElementById("upload-picture").addEventListener("input", () => {
-	updatePreviewPicture();
+document.getElementById("picture-selector").addEventListener("input", () => {
+	let key = document.getElementById("picture-selector").value;
+	let picture = `https://cdn.bloggy.io/images/${readData('username')}/${key}`;
+	document.getElementById("preview_main_picture").src = picture;
 });
-
-function updatePreviewPicture(){
-	let file = document.getElementById("upload-picture").files[0];
-	var fr = new FileReader();
-  fr.onload = function () {
-    document.getElementById("preview_main_picture").src = fr.result;
-  }
-  fr.readAsDataURL(file);
-}
 
 document.getElementById("tabs-1-tab-1").addEventListener("click", () => {
 	fhide("tabs-1-panel-2");
