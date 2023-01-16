@@ -77,7 +77,7 @@ function updatePreviewPicture(){
 	let file = document.getElementById("upload-picture").files[0];
 	var fr = new FileReader();
   fr.onload = function () {
-    document.getElementById(preview_main_picture).src = fr.result;
+    document.getElementById("preview_main_picture").src = fr.result;
   }
   fr.readAsDataURL(file);
 }
