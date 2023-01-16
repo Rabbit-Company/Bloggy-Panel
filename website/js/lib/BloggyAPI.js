@@ -355,6 +355,7 @@
 				if(!Validate.username(username)) return reject(1002);
 				if(!Validate.token(token)) return reject(1015);
 				if(!Validate.avatar(image)) return reject(1029);
+				console.log(image.type);
 				if(!Validate.imageFileType(image.type)) reject(1032);
 
 				fetch("https://api.bloggy.io/saveImage", {
