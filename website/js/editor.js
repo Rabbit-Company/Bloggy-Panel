@@ -69,6 +69,15 @@ document.getElementById("keywords").addEventListener("input", () => {
 	document.getElementById("keywords").value = keywords.toLowerCase();
 });
 
+document.getElementById("upload-picture").addEventListener("input", () => {
+	updatePreview();
+});
+
+function updatePreview(){
+	document.getElementById("preview_main_picture").src = document.getElementById("upload-picture").files[0];
+	document.getElementById("preview_main_tag").innerText = document.getElementById("tag").value;
+}
+
 document.getElementById("tabs-1-tab-1").addEventListener("click", () => {
 	fhide("tabs-1-panel-2");
 	fshow("tabs-1-panel-1", "block");
