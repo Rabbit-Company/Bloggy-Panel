@@ -119,7 +119,8 @@ function saveImage(image) {
 			return;
 		}
 
-		changeDialog(7, "Image successfully uploaded.");
+		hide('dialog');
+		getImages();
 
 	}).catch(err => {
 		switch(err){
