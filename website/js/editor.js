@@ -96,12 +96,12 @@ document.getElementById("tag").addEventListener("input", () => {
 	document.getElementById("preview_main_tag").innerText = document.getElementById("tag").value;
 });
 
-document.getElementById("picture-selector").addEventListener("input", () => {
+document.getElementById("picture").addEventListener("input", () => {
 	changePreviewPicture();
 });
 
 function changePreviewPicture(){
-	let key = document.getElementById("picture-selector").value;
+	let key = document.getElementById("picture").value;
 	let picture = `https://cdn.bloggy.io/images/${readData('username')}/${key}`;
 	if(key.length == 36) document.getElementById("preview_main_picture").src = picture;
 }
@@ -281,7 +281,7 @@ function fillImages(images){
 		let optionText = document.createTextNode(images[i].key);
 		option.appendChild(optionText);
 
-		document.getElementById("picture-selector").appendChild(option);
+		document.getElementById("picture").appendChild(option);
 	}
 }
 
