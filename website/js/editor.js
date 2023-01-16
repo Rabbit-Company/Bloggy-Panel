@@ -310,7 +310,7 @@ function editPost(){
 
 	changeDialog(8, "Editing post...");
 
-	Bloggy.createPost(readData('username'), readData('token'), id, title, description, picture, markdown, category, language, tag, keywords).then(response => {
+	Bloggy.editPost(readData('username'), readData('token'), id, title, description, picture, markdown, category, language, tag, keywords).then(response => {
 
 		if (typeof response['error'] === 'undefined') {
 			changeDialog(2, "Server is unreachable!");
