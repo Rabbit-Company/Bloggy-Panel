@@ -50,7 +50,7 @@ loadData().then(() => {
 	for(let i = startFrom; i < stopOn; i++){
 		let id = posts[i].id;
 		let username = posts[i].username;
-		let picture = (posts[i].picture.startsWith("http")) ? posts[i].picture : "https://cdn.bloggy.io/posts/" + username + "/" + posts[i].picture;
+		let picture = (posts[i].picture.startsWith("http")) ? posts[i].picture : "https://cdn.bloggy.io/images/" + username + "/" + posts[i].picture;
 
 		html_posts += "<tr class='passwordsBorderColor'><td class='px-8 py-4 max-w-xs overflow-hidden'><div class='flex items-center'><div class='flex-shrink-0 hidden md:block'>";
 		html_posts += "<img class='h-48 w-full object-cover' src='" + picture + "' alt=''>";
