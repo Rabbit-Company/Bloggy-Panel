@@ -12,10 +12,11 @@ loadData().then(() => {
 
 function renderImages(images){
 	let html = "";
+	let username = readData('username');
 	let keys = Object.keys(images);
 	keys.forEach(key => {
 		html += `<li class="relative"><div class="group aspect-w-10 aspect-h-7 block w-full overflow-hidden rounded-lg bg-gray-100">
-			<img src="https://cdn.bloggy.io/images/${key}" class="pointer-events-none object-cover group-hover:opacity-75">
+			<img src="https://cdn.bloggy.io/images/${username}/${key}" class="pointer-events-none object-cover group-hover:opacity-75">
 			<button id="image-${key}" type="button" class="absolute inset-0 focus:outline-none"></button></div>
 			<p class="tertiaryColor pointer-events-none mt-2 block truncate text-sm font-medium">${key}</p>
 			<p class="secondaryColor pointer-events-none block text-sm font-medium">${images[key].size} MB</p></li>`;
