@@ -48,7 +48,7 @@ function setTheme(){
 	if(readData('sessionDuration') == null || typeof(readData('sessionDuration')) == 'undefined') writeData('sessionDuration', '5');
 
 	if(!(["dark", "tokyoNight", "monokai", "solarizedDark", "light", "blue", "nord", "dracula", "gray"].includes(readData('theme')))) writeData('theme', 'dark');
-	document.getElementById("css-theme").href = "css/themes/" + readData('theme') + ".css";
+	document.getElementById("css-theme").href = "/css/themes/" + readData('theme') + ".css";
 }
 
 function loadData(){

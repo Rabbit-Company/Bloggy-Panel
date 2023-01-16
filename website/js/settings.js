@@ -3,7 +3,6 @@ loadData().then(() => {
 
 	let user = JSON.parse(readData('user'));
 
-	document.getElementById("settings-panel-lang").value = readData("lang");
 	document.getElementById("settings-blog-lang").value = user.language;
 	document.getElementById("settings-panel-theme").value = readData("theme");
 	document.getElementById("settings-blog-theme").value = user.theme;
@@ -227,11 +226,6 @@ function changeDialog(style, text) {
 			break;
 	}
 }
-
-document.getElementById("settings-panel-lang").addEventListener("change", () => {
-	writeData('lang', document.getElementById("settings-panel-lang").value);
-	location.reload();
-});
 
 document.getElementById("settings-panel-theme").addEventListener("change", () => {
 	writeData('theme', document.getElementById("settings-panel-theme").value);
