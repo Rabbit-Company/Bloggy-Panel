@@ -4,6 +4,7 @@ loadData().then(() => {
 	let user = JSON.parse(readData('user'));
 
 	document.getElementById("settings-blog-lang").value = user.language;
+	document.getElementById("settings-panel-lang").value = readData("theme");
 	document.getElementById("settings-theme").value = user.theme;
 	document.getElementById("settings-session").value = readData('sessionDuration');
 	document.getElementById("avatar").src = "https://cdn.bloggy.io/avatars/" + user.username;
@@ -226,8 +227,8 @@ function changeDialog(style, text) {
 	}
 }
 
-document.getElementById("settings-blog-lang").addEventListener("change", () => {
-	writeData('lang', document.getElementById("settings-blog-lang").value);
+document.getElementById("settings-panel-lang").addEventListener("change", () => {
+	writeData('lang', document.getElementById("settings-panel-lang").value);
 	location.reload();
 });
 
