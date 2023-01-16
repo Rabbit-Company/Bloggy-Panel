@@ -4,6 +4,9 @@ loadData().then(() => {
 	let posts = JSON.parse(readData('posts'));
 	let user = JSON.parse(readData('user'));
 
+	document.getElementById("preview_main_avatar").src = "https://cdn.bloggy.io/avatars/" + user.username;
+	document.getElementById("preview_main_author").innerText = user.author;
+
 	// Edit
 	if(parms.get("edit") != null && parms.get("edit").length >= 5){
 		let id = parms.get("edit");
