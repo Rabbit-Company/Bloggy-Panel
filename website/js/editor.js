@@ -32,6 +32,9 @@ loadData().then(() => {
 			document.getElementById("btn-post").innerText = "Edit";
 
 			document.getElementById("picture").value = posts[i].picture;
+			document.getElementById("preview_main_title").innerText = posts[i].title;
+			document.getElementById("preview_main_description").innerText = posts[i].description;
+			document.getElementById("preview_main_tag").innerText = posts[i].tag;
 			document.getElementById("preview_main_picture").src = `https://cdn.bloggy.io/images/${user.username}/${posts[i].picture}`;
 			document.getElementById("preview_main_created").innerText = posts[i].created;
 		}
