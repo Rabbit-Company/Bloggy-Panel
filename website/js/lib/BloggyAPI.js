@@ -3,6 +3,7 @@
 	const themes = ['light'];
 	const categories = ['Art and Design', 'Book and Writing', 'Business', 'Car', 'DIY Craft', 'Fashion and Beauty', 'Finance', 'Food', 'Gaming', 'Health and Fitness', 'Lifestyle', 'Movie', 'Music', 'News', 'Parenting', 'Personal', 'Pet', 'Political', 'Religion', 'Review', 'Sports', 'Technology', 'Travel'];
 	const languages = ['ab','aa','af','ak','sq','am','ar','an','hy','as','av','ae','ay','az','bm','ba','eu','be','bn','bh','bi','bs','br','bg','my','ca','km','ch','ce','ny','zh','cu','cv','kw','co','cr','hr','cs','da','dv','nl','dz','en','eo','et','ee','fo','fj','fi','fr','ff','gd','gl','lg','ka','de','ki','el','kl','gn','gu','ht','ha','he','hz','hi','ho','hu','is','io','ig','id','ia','ie','iu','ik','ga','it','ja','jv','kn','kr','ks','kk','rw','kv','kg','ko','kj','ku','ky','lo','la','lv','lb','li','ln','lt','lu','mk','mg','ms','ml','mt','gv','mi','mr','mh','ro','mn','na','nv','nd','ng','ne','se','no','nb','nn','ii','oc','oj','or','om','os','pi','pa','ps','fa','pl','pt','qu','rm','rn','ru','sm','sg','sa','sc','sr','sn','sd','si','sk','sl','so','st','nr','es','su','sw','ss','sv','tl','ty','tg','ta','tt','te','th','bo','ti','to','ts','tn','tr','tk','tw','ug','uk','ur','uz','ve','vi','vo','wa','cy','fy','wo','xh','yi','yo','za','zu'];
+	const supportedImageFileTypes = ['image/png', 'image/jpeg', 'image/gif', 'image/svg+xml', 'image/webp'];
 
 	class Validate{
 
@@ -123,6 +124,11 @@
 		static UUID(uuid){
 			if(typeof(uuid) !== 'string' || uuid === null) return false;
 			return uuid.length == 36;
+		}
+
+		static imageFileType(fileType){
+			if(typeof(language) !== 'string' || language === null) return false;
+			return supportedImageFileTypes.includes(fileType);
 		}
 
 		static json(json){
@@ -349,10 +355,11 @@
 				if(!Validate.username(username)) return reject(1002);
 				if(!Validate.token(token)) return reject(1015);
 				if(!Validate.avatar(image)) return reject(1029);
+				if(!Validate.imageFileType(image.type)) reject(1032);
 
 				fetch("https://api.bloggy.io/saveImage", {
 					method: "PUT",
-					headers: { 'Accept': 'application/json', 'Authorization': 'Basic ' + btoa(username + ":" + token) },
+					headers: { 'Accept': 'application/json', 'Authorization': 'Basic ' + btoa(username + ":" + token), 'File-Type': image.type },
 					body: image
 				}).then((result) => {
 					if (result.status != 200 && result.status != 429) return reject(1000);
