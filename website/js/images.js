@@ -67,7 +67,7 @@ function getImages(){
 		}
 
 		let images = response.images.sort(function(a,b){
-			return new Date(b.date) - new Date(a.date);
+			return new Date(b.uploaded) - new Date(a.uploaded);
 		});
 
 		writeData('images', JSON.stringify(images));
