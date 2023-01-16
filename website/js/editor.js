@@ -70,11 +70,19 @@ document.getElementById("keywords").addEventListener("input", () => {
 });
 
 document.getElementById("upload-picture").addEventListener("input", () => {
-	updatePreview();
+	updatePreviewPicture();
 });
 
+function updatePreviewPicture(){
+	let file = document.getElementById("upload-picture").files[0];
+	var fr = new FileReader();
+  fr.onload = function () {
+    document.getElementById(preview_main_picture).src = fr.result;
+  }
+  fr.readAsDataURL(file);
+}
+
 function updatePreview(){
-	document.getElementById("preview_main_picture").src = document.getElementById("upload-picture").files[0];
 	document.getElementById("preview_main_tag").innerText = document.getElementById("tag").value;
 }
 
