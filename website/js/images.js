@@ -83,6 +83,7 @@ function deleteImage(key){
 			return;
 		}
 
+		hide('dialog');
 		getImages();
 
 	}).catch(err => {
