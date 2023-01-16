@@ -19,7 +19,7 @@ function renderImages(images){
 			<img src="https://cdn.bloggy.io/images/${username}/${key}" class="pointer-events-none object-cover group-hover:opacity-75">
 			<button id="image-${key}" type="button" class="absolute inset-0 focus:outline-none"></button></div>
 			<p class="tertiaryColor pointer-events-none mt-2 block truncate text-sm font-medium">${key}</p>
-			<p class="secondaryColor pointer-events-none block text-sm font-medium">${images[key].size} MB</p></li>`;
+			<p class="secondaryColor pointer-events-none block text-sm font-medium">${images[key].size / 1000} kB</p></li>`;
 	});
 	document.getElementById("image-list").innerHTML = html;
 }
