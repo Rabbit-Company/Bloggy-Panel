@@ -103,6 +103,42 @@ function deleteImage(key){
 	});
 }
 
+function saveImage(image) {
+	changeDialog(10, "Uploading image...");
+	show('dialog');
+
+	Bloggy.saveImage(readData('username'), readData('token'), image).then(response => {
+
+		if (typeof response['error'] === 'undefined') {
+			changeDialog(2, "Server is unreachable!");
+			return;
+		}
+
+		if (response['error'] != 0) {
+			changeDialog(2, response.info);
+			return;
+		}
+
+		changeDialog(7, "Image successfully uploaded.");
+
+	}).catch(err => {
+		switch(err){
+			case 1002:
+				changeDialog(2, "Username can only contain lowercase characters, numbers and hyphens. It also needs to start with lowercase character and be between 4 and 30 characters long.");
+			break;
+			case 1015:
+				changeDialog(2, "Token is invalid. Please login first to get the token.");
+			break;
+			case 1029:
+				changeDialog(2, "Image can't be bigger than 500kB. Please choose smaller image.");
+			break;
+			default:
+				changeDialog(2, "Server is unreachable!");
+			break;
+		}
+	});
+}
+
 function changeDialog(style, text) {
 	switch (style) {
 		case 1:
@@ -161,6 +197,11 @@ function changeDialog(style, text) {
 			break;
 	}
 }
+
+document.getElementById("upload-image").addEventListener("input", () => {
+	let image = document.getElementById("upload-image").files[0];
+	saveImage(image);
+});
 
 document.getElementById("signout-link").addEventListener("click", () => {
 	logout();
