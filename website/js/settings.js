@@ -3,9 +3,10 @@ loadData().then(() => {
 
 	let user = JSON.parse(readData('user'));
 
+	document.getElementById("settings-panel-lang").value = readData("lang");
 	document.getElementById("settings-blog-lang").value = user.language;
-	document.getElementById("settings-panel-lang").value = readData("theme");
-	document.getElementById("settings-theme").value = user.theme;
+	document.getElementById("settings-panel-theme").value = readData("theme");
+	document.getElementById("settings-blog-theme").value = user.theme;
 	document.getElementById("settings-session").value = readData('sessionDuration');
 	document.getElementById("avatar").src = "https://cdn.bloggy.io/avatars/" + user.username;
 
@@ -232,8 +233,8 @@ document.getElementById("settings-panel-lang").addEventListener("change", () => 
 	location.reload();
 });
 
-document.getElementById("settings-theme").addEventListener("change", () => {
-	writeData('theme', document.getElementById("settings-theme").value);
+document.getElementById("settings-panel-theme").addEventListener("change", () => {
+	writeData('theme', document.getElementById("settings-panel-theme").value);
 	document.getElementById("css-theme").href = "/css/themes/" + readData('theme') + ".css";
 });
 
