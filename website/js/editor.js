@@ -209,7 +209,7 @@ function createPost(){
 	let title = document.getElementById("title").value;
 	let description = document.getElementById("description").value;
 	let picture = document.getElementById("picture").value;
-	let markdown = document.getElementById("markdown").value;
+	let markdown = document.getElementById("content").value;
 	let category = document.getElementById("category").value;
 	let language = document.getElementById("language").value;
 	let tag = document.getElementById("tag").value;
