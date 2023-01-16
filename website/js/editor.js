@@ -124,6 +124,8 @@ document.getElementById("tabs-1-tab-2").addEventListener("click", () => {
 	let readTime = Math.round(getWordCount(content) / 200);
 	let avatar = "https://cdn.bloggy.io/avatars/" + user.username;
 
+	document.getElementById("preview_main_read_time").innerText = readTime + " min read";
+
 	let html = "<h1 class='post-title'>" + document.getElementById("title").value + "</h1>";
 	html += "<div class='flex space-x-1 f16'><time datetime='" + created + "'>" + created + "</time><span aria-hidden='true'>&middot;</span><span>" + readTime + " min read</span></div>";
 	html += "<div class='mt-6 flex items-center'><div class='flex-shrink-0'><a href='#'><span class='sr-only'>" + user.author + "</span><img class='h-12 w-12 rounded-full' src='" + avatar + "' alt='" + user.author + "'></a></div><div class='ml-3'><p class='f16 font-medium'><a href='#'>" + user.author + "</a></p></div></div>";
