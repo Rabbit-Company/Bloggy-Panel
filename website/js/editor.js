@@ -56,6 +56,28 @@ document.getElementById("btn-post").addEventListener("click", () => {
 	show('dialog');
 });
 
+function compressImage(imageFile) {
+
+	console.log('originalFile instanceof Blob', imageFile instanceof Blob); // true
+	console.log(`originalFile size ${imageFile.size / 1024 / 1024} MB`);
+
+	var options = {
+		maxSizeMB: 1,
+		maxWidthOrHeight: 1920,
+		useWebWorker: true
+	}
+
+	imageCompression(imageFile, options).then(compressedFile => {
+		console.log('compressedFile instanceof Blob', compressedFile instanceof Blob); // true
+		console.log(`compressedFile size ${compressedFile.size / 1024 / 1024} MB`); // smaller than maxSizeMB
+
+		return compressedFile;
+	}).catch(error => {
+		console.log(error.message);
+		return null;
+	});
+}
+
 document.getElementById("title").addEventListener("input", () => {
 	if(document.getElementById("id").readOnly) return;
 	let title = document.getElementById("title").value;
@@ -89,6 +111,7 @@ document.getElementById("tag").addEventListener("input", () => {
 });
 
 document.getElementById("upload-picture").addEventListener("input", () => {
+	compressImage(document.getElementById("upload-picture").files[0]);
 	updatePreviewPicture();
 });
 
