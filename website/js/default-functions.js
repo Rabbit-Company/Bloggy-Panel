@@ -141,6 +141,7 @@ function clearStorage(){
 	deleteData('user');
 	deleteData('token');
 	deleteData('posts');
+	deleteData('images');
 	deleteData('auth');
 	deleteData('yubico');
 	deleteData('loginTime');
