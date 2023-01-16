@@ -111,7 +111,6 @@ document.getElementById("tag").addEventListener("input", () => {
 });
 
 document.getElementById("upload-picture").addEventListener("input", () => {
-	compressImage(document.getElementById("upload-picture").files[0]);
 	updatePreviewPicture();
 });
 
