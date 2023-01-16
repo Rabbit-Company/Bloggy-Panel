@@ -69,6 +69,8 @@ document.getElementById("keywords").addEventListener("input", () => {
 	document.getElementById("keywords").value = keywords.toLowerCase();
 });
 
+document.getElementById("tag").addEventListener("input", () => updatePreview());
+
 document.getElementById("upload-picture").addEventListener("input", () => {
 	updatePreviewPicture();
 });
