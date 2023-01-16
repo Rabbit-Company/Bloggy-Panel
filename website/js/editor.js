@@ -3,6 +3,12 @@ loadData().then(() => {
 
 	let posts = JSON.parse(readData('posts'));
 	let user = JSON.parse(readData('user'));
+	let images = JSON.parse(readData('images'));
+	if(images == null){
+		getImages();
+	}else{
+		fillImages(images);
+	}
 
 	document.getElementById("preview_main_avatar").src = "https://cdn.bloggy.io/avatars/" + user.username;
 	document.getElementById("preview_main_author").innerText = user.author;
@@ -145,6 +151,7 @@ function changeDialog(style, text) {
 	switch (style) {
 		case 3:
 			//Success dialog
+			showDialogButtons();
 			document.getElementById('dialog-icon').className = "mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-green-100 sm:mx-0 sm:h-10 sm:w-10";
 			document.getElementById('dialog-icon').innerHTML = "<svg class='h-6 w-6 text-green-600' xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='currentColor' aria-hidden='true'><path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M5 13l4 4L19 7' /></svg>";
 
@@ -158,6 +165,7 @@ function changeDialog(style, text) {
 			break;
 		case 6:
 			//Create post dialog
+			showDialogButtons();
 			document.getElementById('dialog-icon').className = "mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-green-100 sm:mx-0 sm:h-10 sm:w-10";
 			document.getElementById('dialog-icon').innerHTML = "<svg class='h-6 w-6 text-green-600' xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='currentColor' aria-hidden='true'><path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M5 13l4 4L19 7' /></svg>";
 
@@ -172,6 +180,7 @@ function changeDialog(style, text) {
 			break;
 		case 7:
 			//Copied successfully
+			showDialogButtons();
 			document.getElementById('dialog-icon').className = "mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-green-100 sm:mx-0 sm:h-10 sm:w-10";
 			document.getElementById('dialog-icon').innerHTML = "<svg class='h-6 w-6 text-green-600' xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='currentColor' aria-hidden='true'><path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M5 13l4 4L19 7' /></svg>";
 
@@ -186,13 +195,12 @@ function changeDialog(style, text) {
 			break;
 		case 8:
 			//Loading...
+			hideDialogButtons();
 			document.getElementById('dialog-icon').className = "mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-blue-100 sm:mx-0 sm:h-10 sm:w-10";
 			document.getElementById('dialog-icon').innerHTML = "<svg class='h-6 w-6 text-blue-600 animate-spin' xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke-width='1.5' stroke='currentColor' aria-hidden='true'><path stroke='none' d='M0 0h24v24H0z' fill='none'></path><path d='M12 3a9 9 0 1 0 9 9'></path></svg>";
 
 			document.getElementById('dialog-title').innerText = "PLEASE WAIT";
 			document.getElementById('dialog-text').innerHTML = text;
-
-			hideDialogButtons();
 		break;
 	}
 }
@@ -213,8 +221,6 @@ function createPost(){
 
 	Bloggy.createPost(readData('username'), readData('token'), id, title, description, picture, markdown, category, language, tag, keywords).then(response => {
 
-		showDialogButtons();
-
 		if (typeof response['error'] === 'undefined') {
 			changeDialog(2, "Server is unreachable!");
 			return;
@@ -228,7 +234,6 @@ function createPost(){
 		changeDialog(3, "Post created successfully.");
 
 	}).catch(err => {
-		showDialogButtons();
 		switch(err){
 			case 1002:
 				changeDialog(2, "Username can only contain lowercase characters, numbers and hyphens. It also needs to start with lowercase character and be between 4 and 30 characters long.");
@@ -265,6 +270,53 @@ function createPost(){
 			break;
 			default:
 				changeDialog(2, "Unknown error!");
+			break;
+		}
+	});
+}
+
+function fillImages(images){
+	let options = "";
+	for(let i = 0; i < images.length; i++){
+		options += `<option value='${images[i].key}'>${images[i].key}</option>`;
+	}
+	document.getElementById("picture-selector").innerHTML = options;
+}
+
+function getImages(){
+	changeDialog(10, "Loading images...");
+	show('dialog');
+
+	Bloggy.getImages(readData('username'), readData('token')).then(response => {
+
+		if (typeof response['error'] === 'undefined') {
+			changeDialog(2, "Server is unreachable!");
+			return;
+		}
+
+		if (response['error'] != 0) {
+			changeDialog(2, response.info);
+			return;
+		}
+
+		let images = response.images.sort(function(a,b){
+			return new Date(b.uploaded) - new Date(a.uploaded);
+		});
+
+		writeData('images', JSON.stringify(images));
+		fillImages(images);
+		hide('dialog');
+
+	}).catch(err => {
+		switch(err){
+			case 1002:
+				changeDialog(2, "Username can only contain lowercase characters, numbers and hyphens. It also needs to start with lowercase character and be between 4 and 30 characters long.");
+			break;
+			case 1015:
+				changeDialog(2, "Token is invalid. Please login first to get the token.");
+			break;
+			default:
+				changeDialog(2, "Server is unreachable!");
 			break;
 		}
 	});
