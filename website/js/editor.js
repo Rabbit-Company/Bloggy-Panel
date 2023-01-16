@@ -8,6 +8,7 @@ loadData().then(() => {
 		getImages();
 	}else{
 		fillImages(images);
+		changePreviewPicture();
 	}
 
 	document.getElementById("preview_main_avatar").src = "https://cdn.bloggy.io/avatars/" + user.username;
@@ -96,10 +97,14 @@ document.getElementById("tag").addEventListener("input", () => {
 });
 
 document.getElementById("picture-selector").addEventListener("input", () => {
+	changePreviewPicture();
+});
+
+function changePreviewPicture(){
 	let key = document.getElementById("picture-selector").value;
 	let picture = `https://cdn.bloggy.io/images/${readData('username')}/${key}`;
-	document.getElementById("preview_main_picture").src = picture;
-});
+	if(key.length == 36) document.getElementById("preview_main_picture").src = picture;
+}
 
 document.getElementById("tabs-1-tab-1").addEventListener("click", () => {
 	fhide("tabs-1-panel-2");
@@ -302,6 +307,7 @@ function getImages(){
 
 		writeData('images', JSON.stringify(images));
 		fillImages(images);
+		changePreviewPicture();
 		hide('dialog');
 
 	}).catch(err => {
