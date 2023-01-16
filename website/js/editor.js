@@ -269,11 +269,15 @@ function createPost(){
 }
 
 function fillImages(images){
-	let options = "";
 	for(let i = 0; i < images.length; i++){
-		options += `<option value='${images[i].key}'>${images[i].key}</option>`;
+		let option = document.createElement("option");
+		option.setAttribute('value', images[i].key);
+
+		let optionText = document.createTextNode(images[i].key);
+		option.appendChild(optionText);
+
+		document.getElementById("picture-selector").appendChild(option);
 	}
-	document.getElementById("picture-selector").innerHTML = options;
 }
 
 function getImages(){
