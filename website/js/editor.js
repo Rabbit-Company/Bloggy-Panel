@@ -31,7 +31,8 @@ loadData().then(() => {
 			document.getElementById("id").readOnly = true;
 			document.getElementById("btn-post").innerText = "Edit";
 
-			document.getElementById("preview_main_picture").src = posts[i].picture;
+			document.getElementById("picture").value = posts[i].picture;
+			document.getElementById("preview_main_picture").src = `https://cdn.bloggy.io/images/${user.username}/${posts[i].picture}`;
 			document.getElementById("preview_main_created").innerText = posts[i].created;
 		}
 	}else{
