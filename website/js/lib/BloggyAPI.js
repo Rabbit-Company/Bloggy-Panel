@@ -355,12 +355,11 @@
 				if(!Validate.username(username)) return reject(1002);
 				if(!Validate.token(token)) return reject(1015);
 				if(!Validate.avatar(image)) return reject(1029);
-				console.log(image.type);
 				if(!Validate.imageFileType(image.type)) reject(1032);
 
 				fetch("https://api.bloggy.io/saveImage", {
 					method: "PUT",
-					headers: { 'Accept': 'application/json', 'Authorization': 'Basic ' + btoa(username + ":" + token), 'File-Type': image.type },
+					headers: { 'Accept': 'application/json', 'Authorization': 'Basic ' + btoa(username + ":" + token), 'Content-Type': image.type },
 					body: image
 				}).then((result) => {
 					if (result.status != 200 && result.status != 429) return reject(1000);
