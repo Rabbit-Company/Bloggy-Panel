@@ -6,6 +6,7 @@ loadData().then(() => {
 	document.getElementById("settings-lang").value = user.language;
 	document.getElementById("settings-theme").value = user.theme;
 	document.getElementById("settings-session").value = readData('sessionDuration');
+	document.getElementById("avatar").src = "https://cdn.bloggy.io/avatars/" + user.username;
 
 	if(user.fa_enabled === true){
 		document.getElementById("toggle-2fa-btn").innerText = "Disable";
