@@ -69,7 +69,17 @@ document.getElementById("keywords").addEventListener("input", () => {
 	document.getElementById("keywords").value = keywords.toLowerCase();
 });
 
-document.getElementById("tag").addEventListener("input", () => updatePreview());
+document.getElementById("title").addEventListener("input", () => {
+	document.getElementById("preview_main_title").innerText = document.getElementById("title").value;
+});
+
+document.getElementById("description").addEventListener("input", () => {
+	document.getElementById("preview_main_description").innerText = document.getElementById("description").value;
+});
+
+document.getElementById("tag").addEventListener("input", () => {
+	document.getElementById("preview_main_tag").innerText = document.getElementById("tag").value;
+});
 
 document.getElementById("upload-picture").addEventListener("input", () => {
 	updatePreviewPicture();
@@ -82,10 +92,6 @@ function updatePreviewPicture(){
     document.getElementById("preview_main_picture").src = fr.result;
   }
   fr.readAsDataURL(file);
-}
-
-function updatePreview(){
-	document.getElementById("preview_main_tag").innerText = document.getElementById("tag").value;
 }
 
 document.getElementById("tabs-1-tab-1").addEventListener("click", () => {
