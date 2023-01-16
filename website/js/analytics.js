@@ -1,0 +1,4 @@
+loadData().then(() => {
+	startAuthenticator();
+
+});
