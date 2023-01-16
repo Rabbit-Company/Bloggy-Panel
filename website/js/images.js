@@ -156,6 +156,9 @@ function saveImage(image) {
 			case 1029:
 				changeDialog(2, "Image can't be bigger than 500kB. Please choose smaller image.");
 			break;
+			case 1032:
+				changeDialog(2, "File type is not supported. Please upload .png, .jpg, .gif, .svg or .webp");
+			break;
 			default:
 				changeDialog(2, "Server is unreachable!");
 			break;
