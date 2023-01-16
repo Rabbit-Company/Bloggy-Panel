@@ -61,7 +61,11 @@ document.getElementById("main-menu-toggle-btn").addEventListener("click", () => 
 });
 
 document.getElementById("btn-post").addEventListener("click", () => {
-	changeDialog(6);
+	if(parms.get("edit") != null && parms.get("edit").length >= 5){
+		changeDialog(9);
+	}else{
+		changeDialog(6);
+	}
 	show('dialog');
 });
 
