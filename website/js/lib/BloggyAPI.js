@@ -51,6 +51,11 @@
 			return true;
 		}
 
+		static image(image){
+			if(image.size > 500_000) return false;
+			return true;
+		}
+
 		static category(category){
 			if(typeof(category) !== 'string' || category === null) return false;
 			return categories.includes(category);
@@ -324,6 +329,31 @@
 					method: "PUT",
 					headers: { 'Accept': 'application/json', 'Authorization': 'Basic ' + btoa(username + ":" + token) },
 					body: avatar
+				}).then((result) => {
+					if (result.status != 200 && result.status != 429) return reject(1000);
+					return result.text();
+				}).then((response) => {
+					try{
+						return resolve(JSON.parse(response));
+					}catch(error){
+						return reject(1000);
+					}
+				}).catch(() => {
+					return reject(1000);
+				});
+			});
+		}
+
+		static saveImage(username, token, image){
+			return new Promise((resolve, reject) => {
+				if(!Validate.username(username)) return reject(1002);
+				if(!Validate.token(token)) return reject(1015);
+				if(!Validate.avatar(image)) return reject(1029);
+
+				fetch("https://api.bloggy.io/saveImage", {
+					method: "PUT",
+					headers: { 'Accept': 'application/json', 'Authorization': 'Basic ' + btoa(username + ":" + token) },
+					body: image
 				}).then((result) => {
 					if (result.status != 200 && result.status != 429) return reject(1000);
 					return result.text();
