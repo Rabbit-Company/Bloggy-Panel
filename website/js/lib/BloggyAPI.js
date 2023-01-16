@@ -425,6 +425,35 @@
 			});
 		}
 
+		static generatePages(username, token){
+			return new Promise((resolve, reject) => {
+				if(!Validate.username(username)) return reject(1002);
+				if(!Validate.token(token)) return reject(1015);
+
+				let data = {
+					username: username,
+					token: token,
+				}
+
+				fetch("https://api.bloggy.io/generatePages", {
+					method: "POST",
+					headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+					body: JSON.stringify(data)
+				}).then((result) => {
+					if (result.status != 200 && result.status != 429) return reject(1000);
+					return result.text();
+				}).then((response) => {
+					try{
+						return resolve(JSON.parse(response));
+					}catch(error){
+						return reject(1000);
+					}
+				}).catch(() => {
+					return reject(1000);
+				});
+			});
+		}
+
 		static deleteAccount(username, token){
 			return new Promise((resolve, reject) => {
 				if(!Validate.username(username)) return reject(1002);

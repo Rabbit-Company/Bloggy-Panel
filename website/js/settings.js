@@ -37,8 +37,6 @@ function saveAvatar(avatar) {
 
 	Bloggy.saveAvatar(readData('username'), readData('token'), avatar).then(response => {
 
-		showDialogButtons();
-
 		if (typeof response['error'] === 'undefined') {
 			changeDialog(2, "Server is unreachable!");
 			return;
@@ -52,7 +50,6 @@ function saveAvatar(avatar) {
 		changeDialog(7, "Avatar successfully changed.");
 
 	}).catch(err => {
-		showDialogButtons();
 		switch(err){
 			case 1002:
 				changeDialog(2, "Username can only contain lowercase characters, numbers and hyphens. It also needs to start with lowercase character and be between 4 and 30 characters long.");
@@ -70,6 +67,34 @@ function saveAvatar(avatar) {
 	});
 }
 
+function generatePages() {
+	changeDialog(10, "Generating pages...");
+	show('dialog');
+
+	Bloggy.generatePages(readData('username'), readData('token')).then(response => {
+
+		if (response['error'] != 0) {
+			changeDialog(2, response.info);
+			return;
+		}
+
+		changeDialog(7, "Pages successfully generated.");
+
+	}).catch(err => {
+		switch(err){
+			case 1002:
+				changeDialog(2, "Username can only contain lowercase characters, numbers and hyphens. It also needs to start with lowercase character and be between 4 and 30 characters long.");
+			break;
+			case 1015:
+				changeDialog(2, "Token is invalid. Please login first to get the token.");
+			break;
+			default:
+				changeDialog(2, "Server is unreachable!");
+			break;
+		}
+	});
+}
+
 function deleteAccount() {
 	changeDialog(10, "Deleting account...");
 	show('dialog');
@@ -77,7 +102,6 @@ function deleteAccount() {
 	Bloggy.deleteAccount(readData('username'), readData('token')).then(response => {
 
 		if (response['error'] != 0) {
-			showDialogButtons();
 			changeDialog(2, response.info);
 			return;
 		}
@@ -85,7 +109,6 @@ function deleteAccount() {
 		logout();
 
 	}).catch(err => {
-		showDialogButtons();
 		switch(err){
 			case 1002:
 				changeDialog(2, "Username can only contain lowercase characters, numbers and hyphens. It also needs to start with lowercase character and be between 4 and 30 characters long.");
@@ -104,6 +127,7 @@ function changeDialog(style, text) {
 	switch (style) {
 		case 1:
 			//Delete account dialog
+			showDialogButtons();
 			document.getElementById('dialog-icon').className = "mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-red-100 sm:mx-0 sm:h-10 sm:w-10";
 			document.getElementById('dialog-icon').innerHTML = "<svg class='h-6 w-6 text-red-600' xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='currentColor' aria-hidden='true'><path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z' /></svg>";
 
@@ -118,6 +142,7 @@ function changeDialog(style, text) {
 			break;
 		case 2:
 			//Error dialog
+			showDialogButtons();
 			document.getElementById('dialog-icon').className = "mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-red-100 sm:mx-0 sm:h-10 sm:w-10";
 			document.getElementById('dialog-icon').innerHTML = "<svg class='h-6 w-6 text-red-600' xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='currentColor' aria-hidden='true'><path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z' /></svg>";
 
@@ -132,6 +157,7 @@ function changeDialog(style, text) {
 			break;
 		case 3:
 			//Enable 2fa dialog
+			showDialogButtons();
 			document.getElementById('dialog-icon').className = "mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-blue-100 sm:mx-0 sm:h-10 sm:w-10";
 			document.getElementById('dialog-icon').innerHTML = "<svg class='h-6 w-6 text-blue-600' xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='currentColor' aria-hidden='true'> <path stroke='none' d='M0 0h24v24H0z' fill='none'/> <path d='M7 16h-4l3.47 -4.66a2 2 0 1 0 -3.47 -1.54' /> <path d='M10 16v-8h4' /> <line x1='10' y1='12' x2='13' y2='12' /> <path d='M17 16v-6a2 2 0 0 1 4 0v6' /> <line x1='17' y1='13' x2='21' y2='13' /></svg>";
 
@@ -146,6 +172,7 @@ function changeDialog(style, text) {
 			break;
 		case 4:
 			//Enable 2fa confirmation dialog
+			showDialogButtons();
 			document.getElementById('dialog-icon').className = "mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-blue-100 sm:mx-0 sm:h-10 sm:w-10";
 			document.getElementById('dialog-icon').innerHTML = "<svg class='h-6 w-6 text-blue-600' xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='currentColor' aria-hidden='true'> <path stroke='none' d='M0 0h24v24H0z' fill='none'/> <path d='M7 16h-4l3.47 -4.66a2 2 0 1 0 -3.47 -1.54' /> <path d='M10 16v-8h4' /> <line x1='10' y1='12' x2='13' y2='12' /> <path d='M17 16v-6a2 2 0 0 1 4 0v6' /> <line x1='17' y1='13' x2='21' y2='13' /></svg>";
 
@@ -160,6 +187,7 @@ function changeDialog(style, text) {
 			break;
 		case 5:
 			//Disable 2fa confirmation dialog
+			showDialogButtons();
 			document.getElementById('dialog-icon').className = "mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-blue-100 sm:mx-0 sm:h-10 sm:w-10";
 			document.getElementById('dialog-icon').innerHTML = "<svg class='h-6 w-6 text-blue-600' xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='currentColor' aria-hidden='true'> <path stroke='none' d='M0 0h24v24H0z' fill='none'/> <path d='M7 16h-4l3.47 -4.66a2 2 0 1 0 -3.47 -1.54' /> <path d='M10 16v-8h4' /> <line x1='10' y1='12' x2='13' y2='12' /> <path d='M17 16v-6a2 2 0 0 1 4 0v6' /> <line x1='17' y1='13' x2='21' y2='13' /></svg>";
 
@@ -174,6 +202,7 @@ function changeDialog(style, text) {
 			break;
 		case 6:
 			//Add Yubico OTP confirmation dialog
+			showDialogButtons();
 			document.getElementById('dialog-icon').className = "mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-blue-100 sm:mx-0 sm:h-10 sm:w-10";
 			document.getElementById('dialog-icon').innerHTML = "<svg class='h-6 w-6 text-blue-600' xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke-width='1.5' stroke='currentColor' aria-hidden='true'><path stroke='none' d='M0 0h24v24H0z' fill='none'/><circle cx='8' cy='15' r='4' /><line x1='10.85' y1='12.15' x2='19' y2='4' /><line x1='18' y1='5' x2='20' y2='7' /><line x1='15' y1='8' x2='17' y2='10' /></svg>";
 
@@ -188,6 +217,7 @@ function changeDialog(style, text) {
 			break;
 		case 7:
 			//Success dialog
+			showDialogButtons();
 			document.getElementById('dialog-icon').className = "mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-blue-100 sm:mx-0 sm:h-10 sm:w-10";
 			document.getElementById('dialog-icon').innerHTML = "<svg class='h-6 w-6 text-blue-600' xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke-width='1.5' stroke='currentColor' aria-hidden='true'><path stroke='none' d='M0 0h24v24H0z' fill='none'/><circle cx='8' cy='15' r='4' /><line x1='10.85' y1='12.15' x2='19' y2='4' /><line x1='18' y1='5' x2='20' y2='7' /><line x1='15' y1='8' x2='17' y2='10' /></svg>";
 
@@ -202,6 +232,7 @@ function changeDialog(style, text) {
 			break;
 		case 8:
 			//Remove Yubico OTP confirmation dialog
+			showDialogButtons();
 			document.getElementById('dialog-icon').className = "mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-blue-100 sm:mx-0 sm:h-10 sm:w-10";
 			document.getElementById('dialog-icon').innerHTML = "<svg class='h-6 w-6 text-blue-600' xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke-width='1.5' stroke='currentColor' aria-hidden='true'><path stroke='none' d='M0 0h24v24H0z' fill='none'/><circle cx='8' cy='15' r='4' /><line x1='10.85' y1='12.15' x2='19' y2='4' /><line x1='18' y1='5' x2='20' y2='7' /><line x1='15' y1='8' x2='17' y2='10' /></svg>";
 
@@ -216,13 +247,12 @@ function changeDialog(style, text) {
 			break;
 		case 10:
 			//Loading...
+			hideDialogButtons();
 			document.getElementById('dialog-icon').className = "mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-blue-100 sm:mx-0 sm:h-10 sm:w-10";
 			document.getElementById('dialog-icon').innerHTML = "<svg class='h-6 w-6 text-blue-600 animate-spin' xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke-width='1.5' stroke='currentColor' aria-hidden='true'><path stroke='none' d='M0 0h24v24H0z' fill='none'></path><path d='M12 3a9 9 0 1 0 9 9'></path></svg>";
 
 			document.getElementById('dialog-title').innerText = "PLEASE WAIT";
 			document.getElementById('dialog-text').innerHTML = text;
-
-			hideDialogButtons();
 			break;
 	}
 }
@@ -240,6 +270,10 @@ document.getElementById("settings-session").addEventListener("change", () => {
 document.getElementById("delete-account-btn").addEventListener("click", () => {
 	changeDialog(1);
 	show('dialog');
+});
+
+document.getElementById("generate-pages-btn").addEventListener("click", () => {
+	generatePages();
 });
 
 document.getElementById("upload-avatar").addEventListener("input", () => {
