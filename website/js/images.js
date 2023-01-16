@@ -20,13 +20,15 @@ function renderImages(images){
 		<button id="image-${key}" type="button" class="absolute inset-0 focus:outline-none"></button></div>
 		<p class="tertiaryColor pointer-events-none mt-2 block truncate text-sm font-medium">${key}</p><div class="secondaryColor pointer-events-none flex space-x-1 text-sm">
 		<time>${new Date(images[key].uploaded).toISOString().split('T')[0]}</time><span aria-hidden="true">·</span><span>${Math.round(images[key].size / 1000)} kB</span></div></li>`;
+	});
+	document.getElementById("image-list").innerHTML = html;
 
+	keys.forEach(key => {
 		document.getElementById(`image-${key}`).addEventListener('click', () => {
 			changeDialog(1, key);
 			show('dialog');
 		});
 	});
-	document.getElementById("image-list").innerHTML = html;
 }
 
 function getImages(){
