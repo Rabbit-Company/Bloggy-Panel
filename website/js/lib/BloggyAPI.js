@@ -330,10 +330,11 @@
 				if(!Validate.username(username)) return reject(1002);
 				if(!Validate.token(token)) return reject(1015);
 				if(!Validate.avatar(avatar)) return reject(1029);
+				if(!Validate.imageFileType(avatar.type)) reject(1032);
 
 				fetch("https://api.bloggy.io/saveAvatar", {
 					method: "PUT",
-					headers: { 'Accept': 'application/json', 'Authorization': 'Basic ' + btoa(username + ":" + token) },
+					headers: { 'Accept': 'application/json', 'Authorization': 'Basic ' + btoa(username + ":" + token), 'Content-Type': avatar.type },
 					body: avatar
 				}).then((result) => {
 					if (result.status != 200 && result.status != 429) return reject(1000);
