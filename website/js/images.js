@@ -51,6 +51,8 @@ function getImages(){
 		renderImages(response.images);
 		hide('dialog');
 
+		showDialogButtons();
+
 	}).catch(err => {
 		showDialogButtons();
 		switch(err){
