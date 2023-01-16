@@ -200,6 +200,21 @@ function changeDialog(style, text) {
 
 			document.getElementById('dialog-title').innerText = "PLEASE WAIT";
 			document.getElementById('dialog-text').innerHTML = text;
+			break;
+		case 9:
+			//Edit post dialog
+			showDialogButtons();
+			document.getElementById('dialog-icon').className = "mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-green-100 sm:mx-0 sm:h-10 sm:w-10";
+			document.getElementById('dialog-icon').innerHTML = "<svg class='h-6 w-6 text-green-600' xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='currentColor' aria-hidden='true'><path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M5 13l4 4L19 7' /></svg>";
+
+			document.getElementById('dialog-title').innerText = "Edit post";
+			document.getElementById('dialog-text').innerText = "Are you sure you want to edit your post?";
+
+			document.getElementById('dialog-button-cancel').style.display = 'initial';
+
+			document.getElementById('dialog-button').className = "successButton inline-flex justify-center w-full rounded-md border border-transparent shadow-sm px-4 py-2 text-base font-medium focus:outline-none sm:w-auto sm:text-sm";
+			document.getElementById('dialog-button').innerText = "Create";
+			document.getElementById('dialog-button').onclick = () => editPost();
 		break;
 	}
 }
@@ -231,6 +246,76 @@ function createPost(){
 		}
 
 		changeDialog(3, "Post created successfully.");
+
+	}).catch(err => {
+		switch(err){
+			case 1002:
+				changeDialog(2, "Username can only contain lowercase characters, numbers and hyphens. It also needs to start with lowercase character and be between 4 and 30 characters long.");
+			break;
+			case 1015:
+				changeDialog(2, "Token is invalid. Please login again to get new token.");
+			break;
+			case 1018:
+				changeDialog(2, "Post ID can only contain lower case characters, numbers and hypens. It also need to be between 5 and 100 characters long.");
+			break;
+			case 1019:
+				changeDialog(2, "Title needs to be between 5 and 100 characters long.");
+			break;
+			case 1020:
+				changeDialog(2, "Description needs to be between 30 and 300 characters long.");
+			break;
+			case 1021:
+				changeDialog(2, "Picture needs to be between 5 and 500 characters long.");
+			break;
+			case 1022:
+				changeDialog(2, "Post needs to be between 150 and 10000 words long.");
+			break;
+			case 1012:
+				changeDialog(2, "Category is invalid.");
+			break;
+			case 1013:
+				changeDialog(2, "Language is invalid. Please use ISO 639-1.");
+			break;
+			case 1023:
+				changeDialog(2, "Tag needs to be between 3 and 30 characters long.");
+			break;
+			case 1024:
+				changeDialog(2, "You need to have from 3 to 20 keywords. Keywords needs to be separated with comma and string can't be longer than 255 characters.");
+			break;
+			default:
+				changeDialog(2, "Unknown error!");
+			break;
+		}
+	});
+}
+
+function editPost(){
+
+	let id = document.getElementById("id").value;
+	let title = document.getElementById("title").value;
+	let description = document.getElementById("description").value;
+	let picture = document.getElementById("picture").value;
+	let markdown = document.getElementById("content").value;
+	let category = document.getElementById("category").value;
+	let language = document.getElementById("language").value;
+	let tag = document.getElementById("tag").value;
+	let keywords = document.getElementById("keywords").value;
+
+	changeDialog(8, "Editing post...");
+
+	Bloggy.createPost(readData('username'), readData('token'), id, title, description, picture, markdown, category, language, tag, keywords).then(response => {
+
+		if (typeof response['error'] === 'undefined') {
+			changeDialog(2, "Server is unreachable!");
+			return;
+		}
+
+		if (response['error'] != 0) {
+			changeDialog(2, response.info);
+			return;
+		}
+
+		changeDialog(3, "Post edited successfully.");
 
 	}).catch(err => {
 		switch(err){
