@@ -127,7 +127,7 @@
 		}
 
 		static imageFileType(fileType){
-			if(typeof(language) !== 'string' || language === null) return false;
+			if(typeof(fileType) !== 'string' || fileType === null) return false;
 			return supportedImageFileTypes.includes(fileType);
 		}
 
