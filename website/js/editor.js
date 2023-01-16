@@ -20,10 +20,14 @@ loadData().then(() => {
 
 			document.getElementById("id").readOnly = true;
 			document.getElementById("btn-post").innerText = "Edit";
+
+			document.getElementById("preview_main_created").innerText = posts[i].created;
 		}
 	}else{
 		document.getElementById("category").value = user.category;
 		document.getElementById("language").value = user.language;
+
+		document.getElementById("preview_main_created").innerText = new Date().toISOString().split('T')[0];
 	}
 
 });
