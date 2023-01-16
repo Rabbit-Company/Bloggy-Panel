@@ -19,7 +19,11 @@ function renderImages(images){
 			<img src="https://cdn.bloggy.io/images/${username}/${key}" class="pointer-events-none object-cover group-hover:opacity-75">
 			<button id="image-${key}" type="button" class="absolute inset-0 focus:outline-none"></button></div>
 			<p class="tertiaryColor pointer-events-none mt-2 block truncate text-sm font-medium">${key}</p>
-			<p class="secondaryColor pointer-events-none block text-sm font-medium">${Math.round(images[key].size / 1000)} kB</p></li>`;
+			<div class="secondaryColor pointer-events-none flex space-x-1 text-sm">
+				<time>${images[key].uploaded}</time>
+				<span aria-hidden="true">·</span>
+				<span>${Math.round(images[key].size / 1000)} kB</span>
+			</div></li>`;
 	});
 	document.getElementById("image-list").innerHTML = html;
 }
