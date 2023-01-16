@@ -13,6 +13,16 @@ loadData().then(() => {
 function renderImages(images){
 	let html = "";
 	let username = readData('username');
+
+	for(let i = 0; i < images.length; i++){
+		html += `<li class="relative"><div class="group aspect-w-10 aspect-h-7 block w-full overflow-hidden rounded-lg bg-gray-100">
+		<img src="https://cdn.bloggy.io/images/${username}/${images[i].key}" class="pointer-events-none object-cover group-hover:opacity-75">
+		<button id="image-${images[i].key}" type="button" class="absolute inset-0 focus:outline-none"></button></div>
+		<p class="tertiaryColor pointer-events-none mt-2 block truncate text-sm font-medium">${images[i].key}</p><div class="secondaryColor pointer-events-none flex space-x-1 text-sm">
+		<time>${new Date(images[i].uploaded).toISOString().split('T')[0]}</time><span aria-hidden="true">·</span><span>${Math.round(images[i].size / 1000)} kB</span></div></li>`;
+	}
+
+	/*
 	let keys = Object.keys(images);
 	keys.forEach(key => {
 		html += `<li class="relative"><div class="group aspect-w-10 aspect-h-7 block w-full overflow-hidden rounded-lg bg-gray-100">
@@ -21,14 +31,23 @@ function renderImages(images){
 		<p class="tertiaryColor pointer-events-none mt-2 block truncate text-sm font-medium">${key}</p><div class="secondaryColor pointer-events-none flex space-x-1 text-sm">
 		<time>${new Date(images[key].uploaded).toISOString().split('T')[0]}</time><span aria-hidden="true">·</span><span>${Math.round(images[key].size / 1000)} kB</span></div></li>`;
 	});
+	*/
 	document.getElementById("image-list").innerHTML = html;
 
+	for(let i = 0; i < images.length; i++){
+		document.getElementById(`image-${images[i].key}`).addEventListener('click', () => {
+			changeDialog(1, images[i].key);
+			show('dialog');
+		});
+	}
+	/*
 	keys.forEach(key => {
 		document.getElementById(`image-${key}`).addEventListener('click', () => {
 			changeDialog(1, key);
 			show('dialog');
 		});
 	});
+	*/
 }
 
 function getImages(){
@@ -47,8 +66,12 @@ function getImages(){
 			return;
 		}
 
-		writeData('images', JSON.stringify(response.images));
-		renderImages(response.images);
+		let images = response.images.sort(function(a,b){
+			return new Date(b.date) - new Date(a.date);
+		});
+
+		writeData('images', JSON.stringify(images));
+		renderImages(images);
 		hide('dialog');
 
 	}).catch(err => {
