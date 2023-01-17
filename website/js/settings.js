@@ -29,6 +29,14 @@ loadData().then(() => {
 		}
 		document.getElementById('yubico-list').innerHTML = html;
 	}
+
+	if(readData('deleteMode') == null || readData('deleteMode') == 'false'){
+		document.getElementById("toggle-delete-mode-btn").innerText = "Enable";
+		document.getElementById("toggle-delete-mode-btn").className = "successButton font-bold inline-flex items-center justify-center px-4 py-2 border border-transparent font-medium rounded-md focus:outline-none sm:text-sm";
+	}else{
+		document.getElementById("toggle-delete-mode-btn").innerText = "Disable";
+		document.getElementById("toggle-delete-mode-btn").className = "dangerButton font-bold inline-flex items-center justify-center px-4 py-2 border border-transparent font-medium rounded-md focus:outline-none sm:text-sm";
+	}
 });
 
 function saveAvatar(avatar) {
@@ -279,6 +287,15 @@ document.getElementById("generate-pages-btn").addEventListener("click", () => {
 document.getElementById("upload-avatar").addEventListener("input", () => {
 	let avatar = document.getElementById("upload-avatar").files[0];
 	saveAvatar(avatar);
+});
+
+document.getElementById("toggle-delete-mode-btn").addEventListener("click", () => {
+	if(readData('deleteMode') == null || readData('deleteMode') == 'false'){
+		writeData('deleteMode', 'true');
+	}else{
+		writeData('deleteMode', 'false');
+	}
+	location.reload();
 });
 
 document.getElementById("signout-link").addEventListener("click", () => {
