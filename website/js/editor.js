@@ -379,7 +379,7 @@ function fillImages(images){
 }
 
 function getImages(){
-	changeDialog(10, "Loading images...");
+	changeDialog(8, "Loading images...");
 	show('dialog');
 
 	Bloggy.getImages(readData('username'), readData('token')).then(response => {
