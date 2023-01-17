@@ -146,7 +146,7 @@ function changeDialog(style, text) {
 
 			document.getElementById('dialog-button-cancel').style.display = 'none';
 
-			document.getElementById('dialog-button').className = "successButton inline-flex justify-center w-full rounded-md border border-transparent shadow-sm px-4 py-2 text-base font-medium focus:outline-none sm:w-auto sm:text-sm";
+			document.getElementById('dialog-button').className = "cancelButton inline-flex justify-center w-full rounded-md border border-transparent shadow-sm px-4 py-2 text-base font-medium focus:outline-none sm:w-auto sm:text-sm";
 			document.getElementById('dialog-button').innerText = "Okay";
 			document.getElementById('dialog-button').onclick = () => hide('dialog');
 			break;
