@@ -32,10 +32,10 @@ loadData().then(() => {
 
 	if(readData('deleteMode') == null || readData('deleteMode') == 'false'){
 		document.getElementById("toggle-delete-mode-btn").innerText = "Enable";
-		document.getElementById("toggle-delete-mode-btn").className = "successButton font-bold inline-flex items-center justify-center px-4 py-2 border border-transparent font-medium rounded-md focus:outline-none sm:text-sm";
+		document.getElementById("toggle-delete-mode-btn").className = "dangerButton font-bold inline-flex items-center justify-center px-4 py-2 border border-transparent font-medium rounded-md focus:outline-none sm:text-sm";
 	}else{
 		document.getElementById("toggle-delete-mode-btn").innerText = "Disable";
-		document.getElementById("toggle-delete-mode-btn").className = "dangerButton font-bold inline-flex items-center justify-center px-4 py-2 border border-transparent font-medium rounded-md focus:outline-none sm:text-sm";
+		document.getElementById("toggle-delete-mode-btn").className = "successButton font-bold inline-flex items-center justify-center px-4 py-2 border border-transparent font-medium rounded-md focus:outline-none sm:text-sm";
 	}
 });
 
