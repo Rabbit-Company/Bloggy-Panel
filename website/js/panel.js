@@ -79,7 +79,7 @@ loadData().then(() => {
 
 		document.getElementById("delete-post-" + id).addEventListener("click", () => {
 			if(readData('deleteMode') == null || readData('deleteMode') == 'false'){
-				changeDialog(7, "In order to delete posts or images Delete Mode needs to be enabled in settings.");
+				changeDialog(5, "In order to delete posts or images Delete Mode needs to be enabled in settings.");
 				show('dialog');
 			}else{
 				changeDialog(6, id);
@@ -135,6 +135,20 @@ function changeDialog(style, text) {
 			document.getElementById('dialog-button').className = "successButton inline-flex justify-center w-full rounded-md border border-transparent shadow-sm px-4 py-2 text-base font-medium focus:outline-none sm:w-auto sm:text-sm";
 			document.getElementById('dialog-button').innerText = "Okay";
 			document.getElementById('dialog-button').onclick = () => refreshPosts();
+			break;
+		case 5:
+			//Info dialog
+			document.getElementById('dialog-icon').className = "mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-blue-100 sm:mx-0 sm:h-10 sm:w-10";
+			document.getElementById('dialog-icon').innerHTML = "<svg class='h-6 w-6 text-green-600' xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='currentColor' aria-hidden='true'><path stroke='none' d='M0 0h24v24H0z' fill='none'></path><circle cx='12' cy='12' r='9'></circle><line x1='12' y1='8' x2='12.01' y2='8'></line><polyline points='11 12 12 12 12 16 13 16'></polyline></svg>";
+
+			document.getElementById('dialog-title').innerText = "INFO";
+			document.getElementById('dialog-text').innerText = text;
+
+			document.getElementById('dialog-button-cancel').style.display = 'none';
+
+			document.getElementById('dialog-button').className = "successButton inline-flex justify-center w-full rounded-md border border-transparent shadow-sm px-4 py-2 text-base font-medium focus:outline-none sm:w-auto sm:text-sm";
+			document.getElementById('dialog-button').innerText = "Okay";
+			document.getElementById('dialog-button').onclick = () => hide('dialog');
 			break;
 		case 6:
 			//Delete post dialog
