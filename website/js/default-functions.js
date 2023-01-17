@@ -145,6 +145,7 @@ function clearStorage(){
 	deleteData('auth');
 	deleteData('yubico');
 	deleteData('loginTime');
+	deleteData('deleteMode');
 }
 
 function isSessionValid(){

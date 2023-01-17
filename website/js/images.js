@@ -26,8 +26,14 @@ function renderImages(images){
 
 	for(let i = 0; i < images.length; i++){
 		document.getElementById(`image-${images[i].key}`).addEventListener('click', () => {
-			changeDialog(1, images[i].key);
-			show('dialog');
+			if(readData('deleteMode') == null || readData('deleteMode') == 'false'){
+				copyToClipboard(`https://cdn.bloggy.io/images/${readData('username')}/${images[i].key}`);
+				changeDialog(8, "Link copied successfully.");
+				show('dialog');
+			}else{
+				changeDialog(1, images[i].key);
+				show('dialog');
+			}
 		});
 	}
 }
@@ -194,6 +200,20 @@ function changeDialog(style, text) {
 			document.getElementById('dialog-button').className = "successButton inline-flex justify-center w-full rounded-md border border-transparent shadow-sm px-4 py-2 text-base font-medium focus:outline-none sm:w-auto sm:text-sm";
 			document.getElementById('dialog-button').innerText = "Okay";
 			document.getElementById('dialog-button').onclick = () => location.reload();
+			break;
+		case 8:
+			//Copied successfully
+			document.getElementById('dialog-icon').className = "mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-green-100 sm:mx-0 sm:h-10 sm:w-10";
+			document.getElementById('dialog-icon').innerHTML = "<svg class='h-6 w-6 text-green-600' xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='currentColor' aria-hidden='true'><path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M5 13l4 4L19 7' /></svg>";
+
+			document.getElementById('dialog-title').innerText = "SUCCESS";
+			document.getElementById('dialog-text').innerText = text;
+
+			document.getElementById('dialog-button-cancel').style.display = 'none';
+
+			document.getElementById('dialog-button').className = "successButton inline-flex justify-center w-full rounded-md border border-transparent shadow-sm px-4 py-2 text-base font-medium focus:outline-none sm:w-auto sm:text-sm";
+			document.getElementById('dialog-button').innerText = "Okay";
+			document.getElementById('dialog-button').onclick = () => hide('dialog');
 			break;
 		case 10:
 			//Loading...
