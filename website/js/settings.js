@@ -9,6 +9,11 @@ loadData().then(() => {
 	document.getElementById("settings-session").value = readData('sessionDuration');
 	document.getElementById("avatar").src = "https://cdn.bloggy.io/avatars/" + user.username;
 
+	let website = user.social?.website;
+	if(typeof(website) == 'string' && website != ""){
+		document.getElementById("settings-social-input").value = website;
+	}
+
 	if(user.fa_enabled === true){
 		document.getElementById("toggle-2fa-btn").innerText = "Disable";
 		document.getElementById("toggle-2fa-btn").className = "dangerButton font-bold inline-flex items-center justify-center px-4 py-2 border border-transparent font-medium rounded-md focus:outline-none sm:text-sm";
