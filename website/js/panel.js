@@ -78,8 +78,13 @@ loadData().then(() => {
 		});
 
 		document.getElementById("delete-post-" + id).addEventListener("click", () => {
-			changeDialog(6, id);
-			show('dialog');
+			if(readData('deleteMode') == null || readData('deleteMode') == 'false'){
+				changeDialog(7, "In order to delete posts or images Delete Mode needs to be enabled in settings.");
+				show('dialog');
+			}else{
+				changeDialog(6, id);
+				show('dialog');
+			}
 		});
 	}
 });
