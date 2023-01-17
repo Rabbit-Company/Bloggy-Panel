@@ -280,6 +280,40 @@
 						</label>
 					</div>
 				</li>
+				<!-- Social Media -->
+				<li class="secondaryBackgroundColor shadow overflow-hidden rounded-md px-6 py-4">
+					<div>
+						<label id="label-social-media" class="secondaryColor block text-sm font-medium sm:mt-px sm:pt-2">
+								Social Media
+						</label>
+						<select id="settings-social-select" class="mainMenuMobileLink border-transparent w-full block pl-3 pr-4 py-2 text-base focus:outline-none font-medium">
+							<option value="website">Website</option>
+							<option value="discord">Discord</option>
+							<option value="twitter">Twitter</option>
+							<option value="github">Github</option>
+						</select>
+						<div class="mt-5 flex items-center">
+							<div class="flex-initial w-80">
+								<div class="relative rounded-md shadow-sm">
+									<div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+										<svg id="settings-social-image" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 secondaryColor" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+											<path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+											<circle cx="12" cy="12" r="9"></circle>
+											<line x1="3.6" y1="9" x2="20.4" y2="9"></line>
+											<line x1="3.6" y1="15" x2="20.4" y2="15"></line>
+											<path d="M11.5 3a17 17 0 0 0 0 18"></path>
+											<path d="M12.5 3a17 17 0 0 1 0 18"></path>
+										</svg>
+									</div>
+									<input id="settings-social-input" name="settings-social-input" type="text" autocomplete="off" required class="tertiaryBackgroundColor tertiaryColor appearance-none rounded-l-md block w-full pl-10 px-4 py-2 focus:outline-none focus:z-10 sm:text-sm" placeholder="Website">
+								</div>
+							</div>
+							<button id="settings-social-btn" type="button" class="successButton relative inline-flex items-center px-2 py-2 shadow-sm rounded-r-md sm:text-sm focus:outline-none">
+								Submit
+							</button>
+						</div>
+					</div>
+				</li>
 				<!-- Generate Pages -->
 				<li class="secondaryBackgroundColor shadow overflow-hidden rounded-md px-6 py-4">
 					<div>
