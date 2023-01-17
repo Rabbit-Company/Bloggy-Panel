@@ -353,7 +353,7 @@ document.getElementById("settings-social-btn").addEventListener('click', () => {
 	let platform = document.getElementById("settings-social-select").value.toLowerCase();
 	let url = document.getElementById("settings-social-input").value;
 	let user = JSON.parse(readData('user'));
-	if(typeof(user.social) != 'object'){
+	if(typeof(user.social) != 'object' || user.social == null){
 		user.social = {};
 	}
 	user.social[platform] = url;
