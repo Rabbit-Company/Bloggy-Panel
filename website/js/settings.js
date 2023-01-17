@@ -346,6 +346,8 @@ document.getElementById("settings-social-select").addEventListener("change", () 
 	let social = JSON.parse(readData('user')).social?.[selected.toLowerCase()];
 	if(typeof(social) == 'string' && social != ""){
 		document.getElementById("settings-social-input").value = social;
+	}else{
+		document.getElementById("settings-social-input").value = "";
 	}
 });
 
