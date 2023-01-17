@@ -91,6 +91,9 @@ function updateSocialMedia(social) {
 			return;
 		}
 
+		let user = JSON.parse(readData('user'));
+		user.social = social;
+		writeData('user', JSON.stringify(user));
 		changeDialog(7, "Social media updated.");
 
 	}).catch(err => {
