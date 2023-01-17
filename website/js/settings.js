@@ -303,6 +303,11 @@ document.getElementById("settings-social-select").addEventListener("change", () 
 
 	document.getElementById("settings-social-image").innerHTML = svg;
 	document.getElementById("settings-social-input").placeholder = selected;
+
+	let social = JSON.parse(readData('user')).social[selected.toLowerCase()];
+	if(typeof(social) == 'string' && social != ""){
+		document.getElementById("settings-social-input").value = social;
+	}
 });
 
 document.getElementById("toggle-delete-mode-btn").addEventListener("click", () => {
