@@ -75,6 +75,42 @@ function saveAvatar(avatar) {
 	});
 }
 
+function updateSocialMedia(social) {
+	changeDialog(10, "Updating social media...");
+	show('dialog');
+
+	Bloggy.updateSocialMedia(readData('username'), readData('token'), social).then(response => {
+
+		if (typeof response['error'] === 'undefined') {
+			changeDialog(2, "Server is unreachable!");
+			return;
+		}
+
+		if (response['error'] != 0) {
+			changeDialog(2, response.info);
+			return;
+		}
+
+		changeDialog(7, "Social media updated.");
+
+	}).catch(err => {
+		switch(err){
+			case 1002:
+				changeDialog(2, "Username can only contain lowercase characters, numbers and hyphens. It also needs to start with lowercase character and be between 4 and 30 characters long.");
+			break;
+			case 1015:
+				changeDialog(2, "Token is invalid. Please login first to get the token.");
+			break;
+			case 1033:
+				changeDialog(2, "Provided link is invalid.");
+			break;
+			default:
+				changeDialog(2, "Server is unreachable!");
+			break;
+		}
+	});
+}
+
 function generatePages() {
 	changeDialog(10, "Generating pages...");
 	show('dialog');
@@ -308,6 +344,17 @@ document.getElementById("settings-social-select").addEventListener("change", () 
 	if(typeof(social) == 'string' && social != ""){
 		document.getElementById("settings-social-input").value = social;
 	}
+});
+
+document.getElementById("settings-social-btn").addEventListener('click', () => {
+	let platform = document.getElementById("settings-social-select").value.toLowerCase();
+	let url = document.getElementById("settings-social-input").value;
+	let user = JSON.parse(readData('user'));
+	if(typeof(user.social) != 'object'){
+		user.social = {};
+	}
+	user.social[platform] = url;
+	updateSocialMedia(user.social);
 });
 
 document.getElementById("toggle-delete-mode-btn").addEventListener("click", () => {

@@ -4,6 +4,7 @@
 	const categories = ['Art and Design', 'Book and Writing', 'Business', 'Car', 'DIY Craft', 'Fashion and Beauty', 'Finance', 'Food', 'Gaming', 'Health and Fitness', 'Lifestyle', 'Movie', 'Music', 'News', 'Parenting', 'Personal', 'Pet', 'Political', 'Religion', 'Review', 'Sports', 'Technology', 'Travel'];
 	const languages = ['ab','aa','af','ak','sq','am','ar','an','hy','as','av','ae','ay','az','bm','ba','eu','be','bn','bh','bi','bs','br','bg','my','ca','km','ch','ce','ny','zh','cu','cv','kw','co','cr','hr','cs','da','dv','nl','dz','en','eo','et','ee','fo','fj','fi','fr','ff','gd','gl','lg','ka','de','ki','el','kl','gn','gu','ht','ha','he','hz','hi','ho','hu','is','io','ig','id','ia','ie','iu','ik','ga','it','ja','jv','kn','kr','ks','kk','rw','kv','kg','ko','kj','ku','ky','lo','la','lv','lb','li','ln','lt','lu','mk','mg','ms','ml','mt','gv','mi','mr','mh','ro','mn','na','nv','nd','ng','ne','se','no','nb','nn','ii','oc','oj','or','om','os','pi','pa','ps','fa','pl','pt','qu','rm','rn','ru','sm','sg','sa','sc','sr','sn','sd','si','sk','sl','so','st','nr','es','su','sw','ss','sv','tl','ty','tg','ta','tt','te','th','bo','ti','to','ts','tn','tr','tk','tw','ug','uk','ur','uz','ve','vi','vo','wa','cy','fy','wo','xh','yi','yo','za','zu'];
 	const supportedImageFileTypes = ['image/png', 'image/jpeg', 'image/gif', 'image/svg+xml', 'image/webp'];
+	const validSocialMedia = { 'website': false, 'discord': 'https://discord.gg/', 'twitter': 'https://twitter.com/', 'github': 'https://github.com/' }
 
 	class Validate{
 
@@ -124,6 +125,32 @@
 		static UUID(uuid){
 			if(typeof(uuid) !== 'string' || uuid === null) return false;
 			return uuid.length == 36;
+		}
+
+		static URL(url){
+			try{
+				new URL(url);
+				return true;
+			}catch{}
+			return false;
+		}
+
+		static social(social){
+			if(typeof(social) !== 'object') return false;
+			let keys = Object.keys(social);
+			let vsm = Object.keys(validSocialMedia);
+			if(keys.length > 10) return false;
+			for(let i = 0; i < keys.length; i++){
+				let platform = keys[i];
+				if(!vsm.includes(platform)) return false;
+				let url = social[keys[i]];
+				if(!Validate.URL(url)) return false;
+				let validator = validSocialMedia[platform];
+				if(validator != false){
+					if(!url.startsWith(validator)) return false;
+				}
+			}
+			return true;
 		}
 
 		static imageFileType(fileType){
@@ -258,6 +285,38 @@
 				}
 
 				fetch("https://api.bloggy.io/getImages", {
+					method: "POST",
+					headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+					body: JSON.stringify(data)
+				}).then((result) => {
+					if (result.status != 200 && result.status != 429) return reject(1000);
+					return result.text();
+				}).then((response) => {
+					try{
+						let data = JSON.parse(response);
+						return resolve(data);
+					}catch(error){
+						return reject(1000);
+					}
+				}).catch(() => {
+					return reject(1000);
+				});
+			});
+		}
+
+		static updateSocialMedia(username, token, social){
+			return new Promise((resolve, reject) => {
+				if(!Validate.username(username)) return reject(1002);
+				if(!Validate.token(token)) return reject(1015);
+				if(!Validate.social(social)) return reject(1033);
+
+				let data = {
+					username: username,
+					token: token,
+					social: social
+				}
+
+				fetch("https://api.bloggy.io/updateSocialMedia", {
 					method: "POST",
 					headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
 					body: JSON.stringify(data)
