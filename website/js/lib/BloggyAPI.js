@@ -54,7 +54,7 @@
 		}
 
 		static image(image){
-			if(image.size > 500_000) return false;
+			if(image.size > 1_000_000) return false;
 			return true;
 		}
 
@@ -462,7 +462,7 @@
 			return new Promise((resolve, reject) => {
 				if(!Validate.username(username)) return reject(1002);
 				if(!Validate.token(token)) return reject(1015);
-				if(!Validate.avatar(image)) return reject(1029);
+				if(!Validate.image(image)) return reject(1029);
 				if(!Validate.imageFileType(image.type)) reject(1032);
 
 				fetch("https://api.bloggy.io/saveImage", {
