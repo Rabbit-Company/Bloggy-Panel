@@ -142,7 +142,7 @@ function saveImage(image) {
 				changeDialog(2, "Token is invalid. Please login first to get the token.");
 			break;
 			case 1029:
-				changeDialog(2, "Image can't be bigger than 500kB. Please choose smaller image.");
+				changeDialog(2, "Image can't be bigger than 1MB. Please choose smaller image.");
 			break;
 			case 1032:
 				changeDialog(2, "File type is not supported. Please upload .png, .jpg, .gif, .svg or .webp");
