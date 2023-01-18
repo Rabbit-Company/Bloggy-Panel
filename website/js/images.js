@@ -154,6 +154,27 @@ function saveImage(image) {
 	});
 }
 
+function compressImage(image){
+	var options = {
+		maxSizeMB: 1,
+    maxWidthOrHeight: 1920,
+    useWebWorker: true
+	}
+
+	let supportedCompressions = ['image/png', 'image/jpeg'];
+	if(supportedCompressions.includes(image.type)){
+		changeDialog(10, "Compressing image...");
+		show('dialog');
+		imageCompression(image, options).then(compressedImage => {
+			saveImage(compressedImage);
+		}).catch(() => {
+			saveImage(image);
+		});
+	}else{
+		saveImage(image);
+	}
+}
+
 function changeDialog(style, text) {
 	switch (style) {
 		case 1:
@@ -230,7 +251,7 @@ function changeDialog(style, text) {
 
 document.getElementById("upload-image").addEventListener("input", () => {
 	let image = document.getElementById("upload-image").files[0];
-	saveImage(image);
+	compressImage(image);
 });
 
 document.getElementById("signout-link").addEventListener("click", () => {
