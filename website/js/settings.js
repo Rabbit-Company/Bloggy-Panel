@@ -344,6 +344,67 @@ document.getElementById("settings-blog-btn").addEventListener('click', () => {
 	let category = document.getElementById("settings-blog-category").value;
 	let language = document.getElementById("settings-blog-lang").value;
 	let theme = document.getElementById("settings-blog-theme").value;
+
+	changeDialog(10, "Updating blog settings...");
+	show('dialog');
+
+	Bloggy.updateSettings(readData('username'), readData('token'), title, description, author, category, language, theme).then(response => {
+
+		if(typeof response['error'] === 'undefined'){
+			changeDialog(2, "Server is unreachable!");
+			return;
+		}
+
+		if(response['error'] != 0){
+			changeDialog(2, response.info);
+			return;
+		}
+
+		let user = JSON.parse(readData('user'));
+		user.title = title;
+		user.description = description;
+		user.author = author;
+		user.category = category;
+		user.language = language;
+		user.theme = theme;
+		writeData('user', JSON.stringify(user));
+
+		changeDialog(7, "Blog settings updated successfully!");
+
+	}).catch(err => {
+		switch(err){
+			case 1000:
+				changeDialog(2, "Server is unreachable!");
+			break;
+			case 1002:
+				changeDialog(2, "Username can only contain lowercase characters, numbers and hyphens. It also needs to start with lowercase character and be between 4 and 30 characters long.");
+			break;
+			case 1015:
+				changeDialog(2, "Token is invalid. Please login first to get the token.");
+			break;
+			case 1009:
+				changeDialog(2, "Title needs to be between 3 and 30 characters long.");
+			break;
+			case 1010:
+				changeDialog(2, "Description needs to be between 30 and 160 characters long.");
+			break;
+			case 1011:
+				changeDialog(2, "Author needs to be between 5 and 30 characters long.");
+			break;
+			case 1012:
+				changeDialog(2, "Category is invalid.");
+			break;
+			case 1013:
+				changeDialog(2, "Language is invalid. Please use ISO 639-1.");
+			break;
+			case 1014:
+				changeDialog(2, "Theme is invalid.");
+			break;
+			default:
+				changeDialog(2, "Unknown error!");
+			break;
+		}
+	});
 });
 
 document.getElementById("settings-social-select").addEventListener("change", () => {
