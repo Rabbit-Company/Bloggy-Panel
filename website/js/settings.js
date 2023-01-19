@@ -3,11 +3,15 @@ loadData().then(() => {
 
 	let user = JSON.parse(readData('user'));
 
+	document.getElementById("settings-blog-title").value = user.title;
+	document.getElementById("settings-blog-description").value = user.description;
+	document.getElementById("settings-blog-author").value = user.author;
+	document.getElementById("settings-blog-category").value = user.category;
 	document.getElementById("settings-blog-lang").value = user.language;
-	document.getElementById("settings-panel-theme").value = readData("theme");
 	document.getElementById("settings-blog-theme").value = user.theme;
 	document.getElementById("settings-session").value = readData('sessionDuration');
 	document.getElementById("avatar").src = "https://cdn.bloggy.io/avatars/" + user.username;
+	document.getElementById("settings-panel-theme").value = readData("theme");
 
 	let website = user.social?.website;
 	if(typeof(website) == 'string' && website != ""){
