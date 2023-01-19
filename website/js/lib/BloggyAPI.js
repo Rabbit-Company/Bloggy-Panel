@@ -304,6 +304,47 @@
 			});
 		}
 
+		static updateSettings(username, token, title, description, author, category, language, theme){
+			return new Promise((resolve, reject) => {
+				if(!Validate.username(username)) return reject(1002);
+				if(!Validate.token(token)) return reject(1015);
+				if(!Validate.title(title)) return reject(1009);
+				if(!Validate.description(description)) return reject(1010);
+				if(!Validate.author(author)) return reject(1011);
+				if(!Validate.category(category)) return reject(1012);
+				if(!Validate.language(language)) return reject(1013);
+				if(!Validate.theme(theme)) return reject(1014);
+
+				let data = {
+					username: username,
+					token: token,
+					title: title,
+					description: description,
+					author: author,
+					category: category,
+					language: language,
+					theme: theme
+				}
+
+				fetch("https://api.bloggy.io/updateSettings", {
+					method: "POST",
+					headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+					body: JSON.stringify(data)
+				}).then((result) => {
+					if (result.status != 200 && result.status != 429) return reject(1000);
+					return result.text();
+				}).then((response) => {
+					try{
+						return resolve(JSON.parse(response));
+					}catch(error){
+						return reject(1000);
+					}
+				}).catch(() => {
+					return reject(1000);
+				});
+			});
+		}
+
 		static updateSocialMedia(username, token, social){
 			return new Promise((resolve, reject) => {
 				if(!Validate.username(username)) return reject(1002);
