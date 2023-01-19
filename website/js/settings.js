@@ -337,6 +337,15 @@ document.getElementById("upload-avatar").addEventListener("input", () => {
 	saveAvatar(avatar);
 });
 
+document.getElementById("settings-blog-btn").addEventListener('click', () => {
+	let title = document.getElementById("settings-blog-title").value;
+	let description = document.getElementById("settings-blog-description").value;
+	let author = document.getElementById("settings-blog-author").value;
+	let category = document.getElementById("settings-blog-category").value;
+	let language = document.getElementById("settings-blog-lang").value;
+	let theme = document.getElementById("settings-blog-theme").value;
+});
+
 document.getElementById("settings-social-select").addEventListener("change", () => {
 	let svg = `<path stroke="none" d="M0 0h24v24H0z" fill="none"></path><circle cx="12" cy="12" r="9"></circle><line x1="3.6" y1="9" x2="20.4" y2="9"></line><line x1="3.6" y1="15" x2="20.4" y2="15"></line><path d="M11.5 3a17 17 0 0 0 0 18"></path><path d="M12.5 3a17 17 0 0 1 0 18"></path>`;
 	let selected = document.getElementById("settings-social-select").value;
