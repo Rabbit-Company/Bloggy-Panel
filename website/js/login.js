@@ -82,6 +82,15 @@ function signin(username, password, otp){
 		writeData('posts', JSON.stringify(response.data?.posts));
 		writeData('loginTime', new Date().getTime());
 
+		Bloggy.getMonthlyPageVisits(username, new Date().getMonth()).then(response => {
+			let visitors = 0;
+			let pageviews = 0;
+			if(typeof(response.visitors) === 'number') visitors = response.visitors;
+			if(typeof(response.pageviews) === 'number') pageviews = response.pageviews;
+			writeData('analytics_main_visitors', visitors);
+			writeData('analytics_main_pageviews', visitors);
+		}).catch();
+
 		window.location.href = 'panel.html';
 
 	}).catch(err => {

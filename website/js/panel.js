@@ -23,7 +23,8 @@ loadData().then(() => {
 
 	let amount = posts.length;
 	document.getElementById("stats-total-posts").innerText = amount;
-	setStats();
+	document.getElementById('stats-total-visitors').innerText = readData('analytics_main_visitors');
+	document.getElementById('stats-total-pageviews').innerText = readData('analytics_main_pageviews');
 
 	//Page settings
 	let page = (parms.get("page") != null && IsNumeric(parms.get("page")) && parseFloat(parms.get("page")) >= 1) ? parseFloat(parms.get("page")) : 1;
@@ -190,17 +191,6 @@ function changeDialog(style, text) {
 			hideDialogButtons();
 		break;
 	}
-}
-
-function setStats(){
-	Bloggy.getMonthlyPageVisits(readData('username'), new Date().getMonth()).then(response => {
-		if(typeof(response.visitors) === 'number'){
-			document.getElementById('stats-total-visitors').innerText = response.visitors;
-		}
-		if(typeof(response.pageviews) === 'number'){
-			document.getElementById('stats-total-pageviews').innerText = response.pageviews;
-		}
-	}).catch();
 }
 
 function deletePost(id){
