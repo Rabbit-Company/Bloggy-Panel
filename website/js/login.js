@@ -88,7 +88,7 @@ function signin(username, password, otp){
 			if(typeof(response.visitors) === 'number') visitors = response.visitors;
 			if(typeof(response.pageviews) === 'number') pageviews = response.pageviews;
 			writeData('analytics_main_visitors', visitors);
-			writeData('analytics_main_pageviews', visitors);
+			writeData('analytics_main_pageviews', pageviews);
 		}).catch();
 
 		window.location.href = 'panel.html';
