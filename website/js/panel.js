@@ -191,6 +191,17 @@ function changeDialog(style, text) {
 	}
 }
 
+function setStats(){
+	Bloggy.getMonthlyPageVisits(readData('username'), new Date().getMonth()).then(response => {
+		if(typeof(response.visitors) === 'number'){
+			document.getElementById('stats-total-visitors').innerText = response.visitors;
+		}
+		if(typeof(response.pageviews) === 'number'){
+			document.getElementById('stats-total-pageviews').innerText = response.pageviews;
+		}
+	}).catch();
+}
+
 function deletePost(id){
 	changeDialog(8, "Deleting post...");
 
