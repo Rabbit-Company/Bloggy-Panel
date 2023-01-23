@@ -23,6 +23,7 @@ loadData().then(() => {
 
 	let amount = posts.length;
 	document.getElementById("stats-total-posts").innerText = amount;
+	setStats();
 
 	//Page settings
 	let page = (parms.get("page") != null && IsNumeric(parms.get("page")) && parseFloat(parms.get("page")) >= 1) ? parseFloat(parms.get("page")) : 1;
