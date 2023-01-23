@@ -644,6 +644,34 @@
 				});
 			});
 		}
+
+		static getMonthlyPageVisits(username, month){
+
+			let data = {
+				domain: 'bloggy.io',
+				type: 'monthly',
+				year: new Date().getFullYear()
+			}
+
+			fetch("https://analytics.bloggy.io/getReport", {
+				method: "POST",
+				headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+				body: JSON.stringify(data)
+			}).then((result) => {
+				if (result.status != 200 && result.status != 429) return reject(1000);
+				return result.text();
+			}).then((response) => {
+				try{
+					let json = JSON.parse(response);
+					let page = '/creator/' + username;
+					return resolve(json.data[month].pages[page]);
+				}catch(error){
+					return reject(1000);
+				}
+			}).catch(() => {
+				return reject(1000);
+			});
+		}
 	}
 
 	window.Bloggy = Bloggy;
