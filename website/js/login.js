@@ -85,8 +85,8 @@ function signin(username, password, otp){
 		Bloggy.getMonthlyPageVisits(username+"543", new Date().getMonth()).then(response => {
 			let visitors = 0;
 			let pageviews = 0;
-			if(typeof(response.visitors) === 'number') visitors = response.visitors;
-			if(typeof(response.pageviews) === 'number') pageviews = response.pageviews;
+			if(typeof(response) !== 'undefined' && typeof(response.visitors) === 'number') visitors = response.visitors;
+			if(typeof(response) !== 'undefined' && typeof(response.pageviews) === 'number') pageviews = response.pageviews;
 			writeData('analytics_main_visitors', visitors);
 			writeData('analytics_main_pageviews', pageviews);
 
