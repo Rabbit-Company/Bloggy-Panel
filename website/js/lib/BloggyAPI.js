@@ -653,7 +653,7 @@
 					year: new Date().getFullYear()
 				}
 
-				fetch("https://analytics.bloggy.io/getReport", {
+				fetch("https://analytics.rabbithop.org/getReport", {
 					method: "POST",
 					headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
 					body: JSON.stringify(data)
